@@ -3,13 +3,12 @@ HOST: https://mailcow.host/
 
 # mailcow
 
-Mailcow is complete e-mailing solution with advanced antispam, antivirus, nice UI and API.
+Mailcow is complete e-mailing solution with advanced antispam, antivirus, nice UI and API.  
+
+
+In order to use this API you have to create a API key and add your IP Address to the whitelist of allowed IPs this can be done by logging into the Mailcow UI using your admin account, then on the Access page under confirmation & Details scroll down to API.
 
 **This documentation is in Work In Progress status. It contains only few endpoints.**
-
-## On this docs participate:
-
-- [Kristián Feldsam](mailto:feldsam@feldhost.cz)
 
 ## Group Domains
 
@@ -1389,7 +1388,7 @@ You can create new sync job using this action. It takes a JSON object containing
 
 ### Update sync job [POST /api/v1/edit/syncjob]
 
-You can update one or more sync jobs per request. You can also send just attributes you want to change
+You can update one or more sync jobs per request. You can also send just attributes you want to change.
 
 + Request (application/json)
 
@@ -1534,4 +1533,236 @@ You can list all Forwarding Hosts in your system.
                     "source": "hosted.mailcow.de",
                     "keep_spam": "yes"
                 }
+            ]
+
+
+## Group Logs
+
+### Get Postfix logs [GET /api/v1/get/logs/postfix]
+
+This Api endpoint lists all Postfix logs.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                "JSON": [
+                    {
+                        "time": "1569937433",
+                        "program": "postfix/qmgr",
+                        "priority": "info",
+                        "message": "EF1711500458: removed"
+                        }
+                    ]
+                }
+            ]
+
+### Get Rspamd logs [GET /api/v1/get/logs/rspamd-history]
+
+This Api endpoint lists all Rspamd logs.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+### Get Dovecot logs [GET /api/v1/get/logs/dovecot]
+
+This Api endpoint lists all Dovecot logs.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "time": "1569938740",
+                "program": "dovecot",
+                "priority": "info",
+                "message": "managesieve-login: Disconnected (no auth attempts in 0 secs): user=<>, rip=172.22.1.3, lip=172.22.1.250"
+              }
+            ]
+
+
+### Get acme logs [GET /api/v1/get/logs/acme]
+
+This Api endpoint lists all ACME logs from issued Lets Enctypts certificates.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "time": "1569927728",
+                "message": "Certificate validation done, neither changed nor due for renewal, sleeping for another day."
+              }
+            ]
+
+### Get SOGo logs [GET /api/v1/get/logs/sogo]
+
+This Api endpoint lists all SOGo logs.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "time": "1569938874",
+                "program": "sogod",
+                "priority": "notice",
+                "message": "[109]: mailcowdockerized_watchdog-mailcow_1.mailcowdockerized_mailcow-network \"GET \/SOGo.index\/ HTTP\/1.1\" 200 2531\/0 0.005 - - 0"
+              }
+            ]
+
+### Get Watchdog logs [GET /api/v1/get/logs/watchdog]
+
+This Api endpoint lists all Watchdog logs.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "time": "1569938958",
+                "service": "Fail2ban",
+                "lvl": "100",
+                "hpnow": "1",
+                "hptotal": "1",
+                "hpdiff": "0"
+              },
+              {
+                "time": "1569938956",
+                "service": "Rspamd",
+                "lvl": "100",
+                "hpnow": "5",
+                "hptotal": "5",
+                "hpdiff": "0"
+              }
+            ]
+
+### Get Api logs [GET /api/v1/get/logs/api]
+
+This Api endpoint lists all Api logs.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "time": 1569939001,
+                "uri": "\/api\/v1\/get\/logs\/api\/2",
+                "method": "GET",
+                "remote": "1.1.1.1",
+                "data": ""
+              }
+            ]
+
+### Get Ratelimit logs [GET /api/v1/get/logs/ratelimited]
+
+This Api endpoint lists all Ratelimit logs.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "time": 1569269003,
+                "rcpt": "hello@mailcow.email",
+                "from": "awesome@mailcow.email",
+                "user": "awesome@mailcow.email",
+                "rl_info": "mailcow(RLsdz3tuabozgd4oacbdh8kc78)",
+                "rl_name": "mailcow",
+                "rl_hash": "RLsdz3tuabozgd4oacbdh8kc78",
+                "qid": "E3CF91500458",
+                "ip": "172.22.1.248",
+                "message_id": "6a-5d892500-7-240abd80@90879116",
+                "header_subject": "Mailcow is amazing",
+                "header_from": "\"Awesome\" <awesome@mailcow.email>"
+              }
+            ]
+
+### Get Netfilter logs [GET /api/v1/get/logs/netfilter]
+
+This Api endpoint lists all Netfilter logs.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "time": 1569754911,
+                "priority": "info",
+                "message": "Whitelist was changed, it has 1 entries"
+              },
+              {
+                "time": 1569754911,
+                "priority": "crit",
+                "message": "Add host\/network 1.1.1.1\/32 to blacklist"
+              }
             ]
