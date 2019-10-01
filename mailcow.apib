@@ -1602,7 +1602,7 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
             ]
 
 
-### Get acme logs [GET /api/v1/get/logs/acme]
+### Get ACME logs [GET /api/v1/get/logs/acme]
 
 This Api endpoint lists all ACME logs from issued Lets Enctypts certificates.  
 Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
@@ -1767,6 +1767,31 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
               }
             ]
 
+
+### Get Autodiscover logs [GET /api/v1/get/logs/autodiscover]
+
+This Api endpoint lists all Autodiscover logs.  
+Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "time": 1569684212,
+                "ua": "Microsoft Office\/16.0 (Windows NT 6.2; MAPICPL 16.0.11328; Pro)",
+                "user": "awesome@mailcow.de",
+                "service": "activesync"
+              }
+            ]
+
 ## Queue manager
 
 ### Get mail queue [GET /api/v1/get/mailq/all]
@@ -1790,3 +1815,33 @@ Get all e-mails that are currently in Quarantine.
     + Headers
     
             X-API-Key: api-key-string
+
+## Fail2ban
+
+### Get Fail2Ban config [GET /api/v1/get/fail2ban]
+
+Gets the current fail2ban configuration.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+{
+  "ban_time": 604800,
+  "netban_ipv4": 32,
+  "netban_ipv6": 128,
+  "max_attempts": 1,
+  "retry_window": 7200,
+  "whitelist": "1.1.1.1",
+  "blacklist": "45.82.153.37\/32\n92.118.38.52\/32",
+  "perm_bans": [
+    "45.82.153.37\/32",
+    "92.118.38.52\/32"
+  ]
+}
