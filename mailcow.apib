@@ -1506,3 +1506,32 @@ You can delete one or more sync jobs.
         + msg (array)
             + message
             + entity name
+
+## Group Fordwarding Hosts
+
+### Get all Forwarding Hosts [GET /api/v1/get/fwdhost/all]
+
+You can list all Forwarding Hosts in your system.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "host": "5.1.76.202",
+                    "source": "hosted.mailcow.de",
+                    "keep_spam": "yes"
+                },
+                {
+                    "host": "2a00:f820:417::202",
+                    "source": "hosted.mailcow.de",
+                    "keep_spam": "yes"
+                }
+            ]
