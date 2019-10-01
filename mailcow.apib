@@ -1,0 +1,1508 @@
+FORMAT: 1A
+HOST: https://mailcow.host/
+
+# mailcow
+
+Mailcow is complete e-mailing solution with advanced antispam, antivirus, nice UI and API.
+
+**This documentation is in Work In Progress status. It contains only few endpoints.**
+
+## On this docs participate:
+
+- [Kristián Feldsam](mailto:feldsam@feldhost.cz)
+
+## Group Domains
+
+### List all domains [GET /api/v1/get/domain/all]
+
+You can list all domains existing in system.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+        [
+            {
+                "max_new_mailbox_quota": 10737418240,
+                "def_new_mailbox_quota": 3221225472,
+                "quota_used_in_domain": "0",
+                "mboxes_in_domain": 0,
+                "mboxes_left": 10,
+                "domain_name": "domain.tld",
+                "description": "Some description",
+                "max_num_aliases_for_domain": 400,
+                "max_num_mboxes_for_domain": 10,
+                "def_quota_for_mbox": 3221225472,
+                "max_quota_for_mbox": 10737418240,
+                "max_quota_for_domain": 10737418240,
+                "relayhost": "0",
+                "backupmx": "&#10008;",
+                "gal": "&#10008;",
+                "backupmx_int": 0,
+                "gal_int": 0,
+                "lang": "en",
+                "rl": false,
+                "active": "&#10004;",
+                "active_int": 1,
+                "relay_all_recipients": "&#10008;",
+                "relay_all_recipients_int": 0,
+                "aliases_in_domain": 0,
+                "aliases_left": 400
+            },
+            {
+                "max_new_mailbox_quota": 10737418240,
+                "def_new_mailbox_quota": 3221225472,
+                "quota_used_in_domain": "0",
+                "mboxes_in_domain": 0,
+                "mboxes_left": 10,
+                "domain_name": "domain2.tld",
+                "description": "domain description",
+                "max_num_aliases_for_domain": 400,
+                "max_num_mboxes_for_domain": 10,
+                "def_quota_for_mbox": 3221225472,
+                "max_quota_for_mbox": 10737418240,
+                "max_quota_for_domain": 10737418240,
+                "relayhost": "0",
+                "backupmx": "&#10004;",
+                "gal": "&#10008;",
+                "backupmx_int": 1,
+                "gal_int": 0,
+                "lang": "cs",
+                "rl": false,
+                "active": "&#10004;",
+                "active_int": 1,
+                "relay_all_recipients": "&#10008;",
+                "relay_all_recipients_int": 0,
+                "aliases_in_domain": 0,
+                "aliases_left": 400
+            }
+        ]
+
+### Create new domain [POST /api/v1/add/domain]
+
+You may create your own domain using this action. It takes a JSON object containing a domain informations.
+
++ Request (application/json)
+
+    You can also define rate limiting. If `rl_value` is not empty string, them ratelimit object is created and returned in response.
+
+    + Attributes
+        
+        + domain (string) - Fully qualified domain name
+        + description (string) - Description of domain
+        + aliases (number) - limit count of aliases associated with this domain
+        + mailboxes (number) - limit count of mailboxes associated with this domain
+        + defquota (number) - predefined mailbox quota in `add mailbox` form
+        + maxquota (number) - maximum quota per mailbox
+        + quota (number) - maximum quota for this domain (for all mailboxes in sum)
+        + active (boolean) - is domain active or not
+        + rl_value (number) - rate limit value
+        + rl_frame (enum)
+            + s - per second
+            + m - per minute
+            + h - per hour
+        + backupmx (boolean) - relay domain or not
+        + relay_all_recipients (boolean) - if not, them you have to create "dummy" mailbox for each address to relay
+        + lang (enum) - language code
+            + sk
+            + cs
+            + de
+            + en
+            + es
+            + fr
+            + lv
+            + nl
+            + pl
+            + pt
+            + ru
+            + it
+            + ca
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+    
+            {
+               "domain":"domain.tld",
+               "description":"some decsription",
+               "aliases":"400",
+               "mailboxes":"10",
+               "defquota":"3072",
+               "maxquota":"10240",
+               "quota":"10240",
+               "active":"1",
+               "rl_value":"10",
+               "rl_frame":"s",
+               "backupmx":"0",
+               "relay_all_recipients":"0",
+               "lang":"cs"
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+    
+    + Body
+    
+             [
+                {
+                    "type": "success",
+                    "log": [
+                        "ratelimit",
+                        "edit",
+                        "domain",
+                        {
+                            "rl_value": "10",
+                            "rl_frame": "s",
+                            "object": "domain.tld"
+                        }
+                    ],
+                    "msg": [
+                        "rl_saved",
+                        "domain.tld"
+                    ]
+                },
+                {
+                    "type": "success",
+                    "log": [
+                        "mailbox",
+                        "add",
+                        "domain",
+                        {
+                            "domain": "domain.tld",
+                            "description": "some decsription",
+                            "aliases": "400",
+                            "mailboxes": "10",
+                            "defquota": "3072",
+                            "maxquota": "10240",
+                            "quota": "10240",
+                            "active": "1",
+                            "rl_value": "10",
+                            "rl_frame": "s",
+                            "backupmx": "0",
+                            "relay_all_recipients": "0",
+                            "lang":"cs"
+                        },
+                        null
+                    ],
+                    "msg": [
+                        "domain_added",
+                        "domain.tld"
+                    ]
+                }
+            ]
+
+### Update domain [POST /api/v1/edit/domain]
+
+You can update one or more domains per request. You can also send just attributes you want to change.  
+Example: You can add domain names to items list and in attr object just include `"active": "0"` to deactivate domains.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of domain names you want update
+            + domain_name
+        + attr (object)
+            + description (string) - Description of domain
+            + aliases (number) - limit count of aliases associated with this domain
+            + mailboxes (number) - limit count of mailboxes associated with this domain
+            + defquota (number) - predefined mailbox quota in `add mailbox` form
+            + maxquota (number) - maximum quota per mailbox
+            + quota (number) - maximum quota for this domain (for all mailboxes in sum)
+            + active (boolean) - is domain active or not
+            + gal (boolean) - is domain global address list active or not, it enables shared contacts accross domain in SOGo webmail
+            + relayhost (number) - id of relayhost
+            + backupmx (boolean) - relay domain or not
+            + relay_all_recipients (boolean) - if not, them you have to create "dummy" mailbox for each address to relay
+            + lang (enum) - language code
+                + sk
+                + cs
+                + de
+                + en
+                + es
+                + fr
+                + lv
+                + nl
+                + pl
+                + pt
+                + ru
+                + it
+                + ca
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+
+            {
+               "items":[
+                  "domain.tld"
+               ],
+               "attr":{
+                  "description":"domain description",
+                  "aliases":"400",
+                  "mailboxes":"10",
+                  "defquota":"3072",
+                  "maxquota":"10240",
+                  "quota":"10240",
+                  "active":"1",
+                  "gal":"1",
+                  "relayhost":"2",
+                  "backupmx":"1",
+                  "relay_all_recipients":"0",
+                  "lang":"cs"
+               }
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+        
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "edit",
+                     "domain",
+                     {
+                        "domain":[
+                           "domain.tld"
+                        ],
+                        "description":"domain description",
+                        "aliases":"400",
+                        "mailboxes":"10",
+                        "defquota":"3072",
+                        "maxquota":"10240",
+                        "quota":"10240",
+                        "active":"1",
+                        "gal":"1",
+                        "relayhost":"2",
+                        "backupmx":"1",
+                        "relay_all_recipients":"0",
+                        "lang:"cs"
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "domain_modified",
+                     "domain.tld"
+                  ]
+               }
+            ]  
+            
+
+### Delete domain [POST /api/v1/delete/domain]
+
+You can delete one or more domains.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+    
+            [
+                "domain.tld",
+                "domain2.tld"
+            ]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+        
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "delete",
+                     "domain",
+                     {
+                        "domain":[
+                           "domain.tld",
+                           "domain2.tld"
+                        ]
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "domain_removed",
+                     "domain.tld"
+                  ]
+               },
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "delete",
+                     "domain",
+                     {
+                        "domain":[
+                           "domain.tld",
+                           "domain2.tld"
+                        ]
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "domain_removed",
+                     "domain2.tld"
+                  ]
+               }
+            ]
+
+## Group Domain antispam policies
+
+You can create antispam whitelist and blacklist policies
+
+### List whitelist domain policy [GET /api/v1/get/policy_wl_domain/{domain}]
+
+You can list all whitelist policies per domain.
+
++ Parameters
+    
+    + domain (string) - name of domain
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+   
+        [
+            {
+                "object": "domain.tld",
+                "value": "*@gooddomain.tld",
+                "prefid": 1
+            }
+        ]
+
+### List blacklist domain policy [GET /api/v1/get/policy_bl_domain/{domain}]
+
+You can list all blacklist policies per domain.
+
++ Parameters
+    
+    + domain (string) - name of domain
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+   
+        [
+            {
+                "object": "domain.tld",
+                "value": "*@baddomain.tld",
+                "prefid": 2
+            }
+        ]
+  
+### Create domain policy [POST /api/v1/add/domain-policy]
+
+You may create your own domain policy using this action. It takes a JSON object containing a domain informations. 
+
++ Request (application/json)
+
+    + Attributes
+            
+        + domain (string) - domain name to which policy is associated to
+        + object_list (enum)
+            + wl - whitelist
+            + bl - blacklist
+        + object_from (string) - exact address or use wildcard to match whole domain
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+    
+            {
+               "domain":"domain.tld",
+               "object_list":"bl",
+               "object_from":"*@baddomain.tld"
+            }
+        
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+            
+    + Body
+    
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "policy",
+                     "add",
+                     "domain",
+                     {
+                        "domain":"domain.tld",
+                        "object_list":"bl",
+                        "object_from":"*@baddomain.tld"
+                     }
+                  ],
+                  "msg":[
+                     "domain_modified",
+                     "domain.tld"
+                  ]
+               }
+            ]
+
+### Delete domain policy [POST /api/v1/delete/domain-policy]
+
+You can delete one o more domain policies.
+
++ Request (application/json)
+
+    Delete domain policy by ID
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+    
+            [
+                "1",
+                "2"
+            ]
+        
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+            
+    + Body
+
+             [
+               {
+                  "type":"success",
+                  "log":[
+                     "policy",
+                     "delete",
+                     "domain",
+                     {
+                        "prefid":[
+                           "1",
+                           "2"
+                        ]
+                     }
+                  ],
+                  "msg":[
+                     "item_deleted",
+                     "1"
+                  ]
+               },
+               {
+                  "type":"success",
+                  "log":[
+                     "policy",
+                     "delete",
+                     "domain",
+                     {
+                        "prefid":[
+                           "1",
+                           "2"
+                        ]
+                     }
+                  ],
+                  "msg":[
+                     "item_deleted",
+                     "2"
+                  ]
+               }
+            ]
+
+## Group Mailboxes
+
+### List all mailboxes [GET /api/v1/get/mailbox/all]
+
+You can list all mailboxes existing in system.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+        
+            [
+               {
+                  "max_new_quota":10737418240,
+                  "username":"info@doman3.tld",
+                  "rl":false,
+                  "is_relayed":0,
+                  "name":"Full name",
+                  "active":"&#10004;",
+                  "active_int":1,
+                  "domain":"doman3.tld",
+                  "local_part":"info",
+                  "quota":3221225472,
+                  "attributes":{
+                     "force_pw_update":"0",
+                     "tls_enforce_in":"0",
+                     "tls_enforce_out":"0",
+                     "sogo_access":"1",
+                     "mailbox_format":"maildir:",
+                     "quarantine_notification":"never"
+                  },
+                  "quota_used":0,
+                  "percent_in_use":0,
+                  "messages":0,
+                  "spam_aliases":0,
+                  "percent_class":"success"
+               }
+            ]
+
+### Create mailbox [POST /api/v1/add/mailbox]
+
+You may create your own mailbox using this action. It takes a JSON object containing a domain informations.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + local_part (string) - left part of email address
+        + domain (string) - domain name
+        + name (string) - Full name of the mailbox user
+        + quota (number) - mailbox quota
+        + pasword (string) - mailbox password
+        + password2 (string) - mailbox password for confirmation
+        + active (boolean) - is mailbox active or not
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+    
+            {
+               "local_part":"info",
+               "domain":"domain.tld",
+               "name":"Full name",
+               "quota":"3072",
+               "password":"atedismonsin",
+               "password2":"atedismonsin",
+               "active":"1"
+            }
+        
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+            
+    + Body
+        
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "add",
+                     "mailbox",
+                     {
+                        "local_part":"info",
+                        "domain":"domain.tld",
+                        "name":"Full name",
+                        "quota":"3072",
+                        "password":"*",
+                        "password2":"*",
+                        "active":"1"
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "mailbox_added",
+                     "info@domain.tld"
+                  ]
+               }
+            ]
+
+### Update mailbox [POST /api/v1/edit/mailbox]
+
+You can update one or more mailboxes per request. You can also send just attributes you want to change
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of mailboxes you want update
+            + mailbox_name
+        + attr (object)
+            + name (string) - Full name of the mailbox user
+            + quota (number) - mailbox quota
+            + pasword (string) - new mailbox password
+            + password2 (string) - new mailbox password for confirmation
+            + active (boolean) - is mailbox active or not
+            + sender_acl (array) - list of allowed send from addresses
+                + default - always, allow itself and aliases
+                + info@domain2.tld - allow another mailbox address
+                + domain3.tld - allow *@domain3.tld
+                + asterix - allow send from any address
+            + force_pw_update (boolean) - force user to change password on next login
+            + sogo_access (boolean) - is access to SOGo webmail active or not
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+            
+            {
+               "items":[
+                  "info@domain.tld"
+               ],
+               "attr":{
+                   "name":"Full name",
+                   "quota":"3072",
+                   "password":"",
+                   "password2":"",
+                   "active":"1",
+                   "sender_acl":[
+                      "default",
+                      "info@domain2.tld",
+                      "domain3.tld",
+                      "*"
+                   ],
+                   "force_pw_update":"0",
+                   "sogo_access":"1"
+                }
+            }
+            
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+    
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "edit",
+                     "mailbox",
+                     {
+                        "username":[
+                           "info@domain.tld"
+                        ],
+                        "name":"Full name",
+                        "quota":"3072",
+                        "password":"*",
+                        "password2":"*",
+                        "active":"1",
+                        "sender_acl":[
+                           "default",
+                            "info@domain2.tld",
+                            "domain3.tld",
+                            "*"
+                        ],
+                        "force_pw_update":"0",
+                        "sogo_access":"1"
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "mailbox_modified",
+                     "info@domain.tld"
+                  ]
+               }
+            ]
+            
+
+### Delete mailbox [POST /api/v1/delete/mailbox]
+
+You can delete one or more mailboxes.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+    
+            [
+                "info@domain.tld",
+                "sales@domain.tld"
+            ]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+        
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "delete",
+                     "mailbox",
+                     {
+                        "username":[
+                           "info@domain.tld",
+                           "sales@domain.tld"
+                        ]
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "mailbox_removed",
+                     "info@domain.tld"
+                  ]
+               },
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "delete",
+                     "mailbox",
+                     {
+                        "username":[
+                           "info@domain.tld",
+                           "sales@domain.tld"
+                        ]
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "mailbox_removed",
+                     "sales@domain.tld"
+                  ]
+               }
+            ]  
+
+### Quarantine Notifications [POST /api/v1/edit/quarantine_notification]
+
+You can update one or more mailboxes per request.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of mailboxes you want set qurantine notifications
+            + mailbox_name
+        + attr (object)
+            + quarantine_notification (enum) - recurrence
+                + hourly - every hour
+                + daily - every day
+                + weekly - every week
+                + never - never
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+            
+            {
+               "items":[
+                  "mailbox1@domain.tld",
+                  "mailbox2@domain.tld"
+               ],
+               "attr":{
+                   "quarantine_notification":"hourly"
+                }
+            }
+            
++ Response 200 (application/json)
+
+## Group Aliases
+
+### List all aliases [GET /api/v1/get/alias/all]
+
+You can list all mailbox aliases existing in system.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+        
+            [
+                {
+                    "in_primary_domain": "",
+                    "id": 6,
+                    "domain": "domain.tld",
+                    "public_comment": null,
+                    "private_comment": null,
+                    "goto": "destination@domain.tld",
+                    "address": "alias@domain.tld",
+                    "is_catch_all": 0,
+                    "active": "&#10004;",
+                    "active_int": 1,
+                    "created": "2019-04-04 19:29:49",
+                    "modified": null
+                },
+                {
+                    "in_primary_domain": "",
+                    "id": 10,
+                    "domain": "domain.tld",
+                    "public_comment": null,
+                    "private_comment": null,
+                    "goto": "destination@domain.tld",
+                    "address": "@domain.tld",
+                    "is_catch_all": 1,
+                    "active": "&#10004;",
+                    "active_int": 1,
+                    "created": "2019-04-27 13:42:39",
+                    "modified": null
+                }
+            ]
+
+### Create alias [POST /api/v1/add/alias]
+
+You may create your own mailbox alias using this action. It takes a JSON object containing a domain informations.  
+Only one `goto*` option can be used, for ex. if you want learn as spam, then send just `goto_spam = 1` in request body.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + address (string) - alias address, for catchall use "@domain.tld"
+        + goto (string) - destination address, comma separated
+        - goto_null (boolean) - silently ignore
+        - goto_spam (boolean) - learn as spam
+        - goto_ham (boolean) - learn as ham
+        + active (boolean) - is alias active or not
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+    
+            {
+               "address":"alias@domain.tld",
+               "goto":"destination@domain.tld",
+               "active":"1"
+            }
+        
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+            
+    + Body
+        
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "add",
+                     "alias",
+                     {
+                        "address":"alias@domain.tld",
+                        "goto":"destination@domain.tld",
+                        "active":"1"
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "alias_added",
+                     "alias@domain.tld"
+                  ]
+               }
+            ]
+
+### Update alias [POST /api/v1/edit/alias]
+
+You can update one or more aliases per request. You can also send just attributes you want to change
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of aliases you want update
+            + id
+        + attr (object)
+            + address (string) - alias address, for catchall use "@domain.tld"
+            + goto (string) - destination address, comma separated
+            - goto_null (boolean) - silently ignore
+            - goto_spam (boolean) - learn as spam
+            - goto_ham (boolean) - learn as ham
+            + private_comment (string)
+            + public_comment (string)
+            + active (boolean) - is alias active or not
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+            
+            {
+               "items":[
+                  "6"
+               ],
+               "attr":{
+                   "address":"alias@domain.tld",
+                   "goto":"destination@domain.tld",
+                   "private_comment":"private comment",
+                   "public_comment":"public comment",
+                   "active":"1"
+                }
+            }
+            
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+    
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "edit",
+                     "alias",
+                     {
+                        "id":[
+                           "6"
+                        ],
+                        "address":"alias@domain.tld",
+                        "goto":"destination@domain.tld",
+                        "private_comment":"private comment",
+                        "public_comment":"public comment",
+                        "active":"1"
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "alias_modified",
+                     "alias@domain.tld"
+                  ]
+               }
+            ]
+            
+### Delete alias [POST /api/v1/delete/alias]
+
+You can delete one or more aliases.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+    
+            [
+                "6",
+                "9"
+            ]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+        
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "delete",
+                     "alias",
+                     {
+                        "id":[
+                           "6",
+                           "9"
+                        ]
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "alias_removed",
+                     "alias@domain.tld"
+                  ]
+               },
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "delete",
+                     "alias",
+                     {
+                        "id":[
+                           "6",
+                           "9"
+                        ]
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "alias_removed",
+                     "alias2@domain.tld"
+                  ]
+               }
+            ] 
+
+## Group Sync jobs
+
+### List all sync jobs [GET /api/v1/get/syncjobs/all/no_log]
+
+You can list all syn jobs existing in system.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+        
+            [
+                {
+                    "id": 1,
+                    "user2": "mailbox@domain.tld",
+                    "host1": "imap.server.tld",
+                    "authmech1": "PLAIN",
+                    "regextrans2": "",
+                    "authmd51": 0,
+                    "domain2": "",
+                    "subfolder2": "External",
+                    "user1": "username",
+                    "exclude": "(?i)spam|(?i)junk",
+                    "maxage": 0,
+                    "mins_interval": "20",
+                    "maxbytespersecond": "0",
+                    "port1": 993,
+                    "enc1": "TLS",
+                    "delete2duplicates": 1,
+                    "delete1": 0,
+                    "delete2": 0,
+                    "automap": 1,
+                    "skipcrossduplicates": 0,
+                    "custom_params": "",
+                    "timeout1": 600,
+                    "timeout2": 600,
+                    "subscribeall": 1,
+                    "is_running": 0,
+                    "last_run": "2019-05-22 11:40:02",
+                    "created": "2019-05-22 11:37:25",
+                    "modified": "2019-05-22 11:40:02",
+                    "active": "&#10003;",
+                    "active_int": 1,
+                    "log": ""
+                }
+            ]
+
+### Create sync job [POST /api/v1/add/syncjob]
+
+You can create new sync job using this action. It takes a JSON object containing a domain informations.  
+
++ Request (application/json)
+
+    + Attributes
+        
+        + username (string) - The target mailbox
+        + delete2duplicates (boolean) - Delete duplicates on destination
+        + delete1 (boolean) - Delete from source when completed
+        + delete2 (boolean) - Delete messages on destination that are not on source
+        + automap (boolean) - Try to automap folders ("Sent items", "Sent" => "Sent" etc.)
+        + skipcrossduplicates (boolean) - Skip duplicate messages across folders (first come, first serve)
+        + active (boolean) - Is sync job active
+        + subscribeall (boolean) - Subscribe all folders
+        + host1 (string) - Hostname
+        + port1 (string) - Port
+        + user1 (string) - Username
+        + password1 (string) - Password
+        + enc1 (enum) - Encryption
+            + TLS
+            + SSL
+            + PLAIN
+        + mins_interval (number) - Interval (min)
+        + subfolder2 (string) - Sync into subfolder on destination (empty = do not use subfolder)
+        + maxage (number) - Maximum age of messages in days that will be polled from remote (0 = ignore age)
+        + maxbytespersecond (number) - Max. bytes per second (0 = unlimited)
+        + timeout1 (number) - Timeout for connection to remote host
+        + timeout2 (number) - Timeout for connection to local host
+        + exclude (string) - Exclude objects (regex)
+        + custom_params (string) - Custom parameters passed to imapsync command
+
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+    
+            {
+               "username":"mailbox@domain.tld",
+               "host1":"imap.server.tld",
+               "port1":"993",
+               "user1":"username",
+               "password1":"supersecret",
+               "enc1":"SSL",
+               "mins_interval":"20",
+               "subfolder2":"External",
+               "maxage":"0",
+               "maxbytespersecond":"0",
+               "timeout1":"600",
+               "timeout2":"600",
+               "exclude":"(?i)spam|(?i)junk",
+               "custom_params":"",
+               "delete2duplicates":"1",
+               "delete1":"0",
+               "delete2":"0",
+               "automap":"1",
+               "skipcrossduplicates":"0",
+               "subscribeall":"1",
+               "active":"1",
+            }
+        
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+        
+            [
+               {
+                  "type":"success",
+                  "log":[
+                     "mailbox",
+                     "add",
+                     "syncjob",
+                     {
+                        "username":"mailbox@domain.tld",
+                        "host1":"imap.server.tld",
+                        "port1":993,
+                        "user1":"username",
+                        "password1":"supersecret",
+                        "enc1":"SSL",
+                        "mins_interval":"20",
+                        "subfolder2":"External",
+                        "maxage":"0",
+                        "maxbytespersecond":"0",
+                        "timeout1":"600",
+                        "timeout2":"600",
+                        "exclude":"(?i)spam|(?i)junk",
+                        "custom_params":"",
+                        "delete2duplicates":"1",
+                        "delete1":"0",
+                        "delete2":"0",
+                        "automap":"1",
+                        "skipcrossduplicates":"0",
+                        "subscribeall":"1",
+                        "active":"1"
+                     },
+                     null
+                  ],
+                  "msg":[
+                     "mailbox_modified",
+                     "mailbox@domain.tld"
+                  ]
+               }
+            ]
+
+
+### Update sync job [POST /api/v1/edit/syncjob]
+
+You can update one or more sync jobs per request. You can also send just attributes you want to change
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of aliases you want update
+            + id
+        + attr (object)
+            + delete2duplicates (boolean) - Delete duplicates on destination
+            + delete1 (boolean) - Delete from source when completed
+            + delete2 (boolean) - Delete messages on destination that are not on source
+            + automap (boolean) - Try to automap folders ("Sent items", "Sent" => "Sent" etc.)
+            + skipcrossduplicates (boolean) - Skip duplicate messages across folders (first come, first serve)
+            + active (boolean) - Is sync job active
+            + subscribeall (boolean) - Subscribe all folders
+            + host1 (string) - Hostname
+            + port1 (string) - Port
+            + user1 (string) - Username
+            + password1 (string) - Password
+            + enc1 (enum) - Encryption
+                + TLS
+                + SSL
+                + PLAIN
+            + mins_interval (number) - Interval (min)
+            + subfolder2 (string) - Sync into subfolder on destination (empty = do not use subfolder)
+            + maxage (number) - Maximum age of messages in days that will be polled from remote (0 = ignore age)
+            + maxbytespersecond (number) - Max. bytes per second (0 = unlimited)
+            + timeout1 (number) - Timeout for connection to remote host
+            + timeout2 (number) - Timeout for connection to local host
+            + exclude (string) - Exclude objects (regex)
+            + custom_params (string) - Custom parameters passed to imapsync command
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+            
+            {
+               "items":[
+                  "1"
+               ],
+               "attr":{
+                   "delete2duplicates":"1",
+                   "delete1":"0",
+                   "delete2":"0",
+                   "automap":"1",
+                   "skipcrossduplicates":"0",
+                   "active":"1",
+                   "subscribeall":"1",
+                   "host1":"imap.server.tld",
+                   "port1":"993",
+                   "user1":"username",
+                   "password1":"supersecret",
+                   "enc1":"SSL",
+                   "mins_interval":"20",
+                   "subfolder2":"External",
+                   "maxage":"0",
+                   "maxbytespersecond":"0",
+                   "timeout1":"600",
+                   "timeout2":"600",
+                   "exclude":"(?i)spam|(?i)junk",
+                   "custom_params":""
+                }
+            }
+            
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+### Delete sync job [POST /api/v1/delete/syncjob]
+
+You can delete one or more sync jobs.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+            
+    + Body
+    
+            [
+                "6",
+                "9"
+            ]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
