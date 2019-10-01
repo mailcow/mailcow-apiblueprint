@@ -1766,3 +1766,27 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
                 "message": "Add host\/network 1.1.1.1\/32 to blacklist"
               }
             ]
+
+## Queue manager
+
+### Get mail queue [GET /api/v1/get/mailq/all]
+
+Get the current mail queue and everything it contains.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+## Quarantine
+
+### Get e-mails in Quarantine [GET /api/v1/get/quarantine/all]
+
+Get all e-mails that are currently in Quarantine.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
