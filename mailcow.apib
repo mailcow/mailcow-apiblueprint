@@ -1536,6 +1536,51 @@ You can list all Forwarding Hosts in your system.
             ]
 
 
+### Add new Forward host [POST /api/v1/add/fwdhost]
+
+Add a new Forwarding host to mailcow. You can chose to enable or disable spam filtering of incoming emails by specifing `filter_spam` 0 = inactive, 1 = active.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Attributes
+        
+        + hostname (string) - contains the hostname you want to add
+        + filter_spam (number) - 1 to enable spam filter, 0 to disable spam filter
+    
+    + Body
+
+            {
+                "hostname": "hosted.mailcow.de",
+                "filter_spam": "0"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "fwdhost",
+                  "add",
+                  {
+                    "hostname": "hosted.mailcow.de",
+                    "filter_spam": "0"
+                  }
+                ],
+                "msg": [
+                  "forwarding_host_added",
+                  "5.1.76.202, 2a00:f820:417::202"
+                ]
+              }
+            ]
+
+
 ## Group Logs
 
 ### Get Postfix logs [GET /api/v1/get/logs/postfix]
