@@ -1849,6 +1849,66 @@ Get the current mail queue and everything it contains.
     
             X-API-Key: api-key-string
 
+### Flush Queue [POST /api/v1/edit/mailq]
+
+Using this API you can flush the current mail queue. This will try to deliver all mails currently in it.
+This API uses the command: `postqueue -f`
+
++ Request (application/json)
+
+    + Attributes
+        
+        + action (string) - use flush to flush the mail queue
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+        { 
+          "action":"flush"
+        }
+
++ Request (application/json)
+
+    + Headers
+
+        {
+          "type": "success",
+          "msg": "Task completed"
+        }
+
+### Delete Queue [POST /api/v1/edit/mailq]
+
+Using this API you can delete the current mail queue. This will delete all mails in it.
+This API uses the command: `postsuper -d`
+
++ Request (application/json)
+
+    + Attributes
+        
+        + action (string) - use super_delete to delete the mail queue
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "action":"super_delete"
+            }
+
++ Request (application/json)
+
+    + Headers
+
+        {
+          "type": "success",
+          "msg": "Task completed"
+        }
+
 ## Quarantine
 
 ### Get e-mails in Quarantine [GET /api/v1/get/quarantine/all]
@@ -1890,3 +1950,134 @@ Gets the current fail2ban configuration.
     "92.118.38.52\/32"
   ]
 }
+
+## DKIM
+
+### Generate new DKIM key [POST /api/v1/add/dkim]
+
+Using this endpoint you can create DKIM generate new DKIM keys.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + domain (string) - the domain which a key should be generated for
+        + dkim_selector (string) - the DKIM selector default dkim
+        + key_size (number) - the key size (1024 or 2048)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "domains":"mailcow.de",
+                "dkim_selector":"dkim",
+                "key_size":"2048"
+            }
+
++ Request (application/json)
+
+    + Headers
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "dkim",
+                  "add",
+                  {
+                    "domains": "hanspeterlol.de",
+                    "dkim_selector": "dkim",
+                    "key_size": "2048"
+                  }
+                ],
+                "msg": [
+                  "dkim_added",
+                  "hanspeterlol.de"
+                ]
+              }
+            ]
+
+### Duplicate DKIM key [POST /api/v1/add/dkim_duplicate]
+
+Using this endpoint you can duplicate the DKIM key of one domain.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + fron_domain (string) - the domain where the dkim key should be copied from
+        + to_domain (string) - the domain where the dkim key should be copied to
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "from_domain":"mailcow.de",
+                "to_domain":"awesomecow.de"
+            }
+
++ Request (application/json)
+
+    + Headers
+
+            [
+             {
+                "type": "success",
+                "log": [
+                  "dkim",
+                  "duplicate",
+                  {
+                    "from_domain": "mailcow.de",
+                    "to_domain": "awesomecow.de"
+                  }
+                ],
+                "msg": [
+                  "dkim_duplicated",
+                  "mailcow.de",
+                  "awesomecow.de"
+                ]
+              }
+            ]
+
+### Delete DKIM key [POST /api/v1/delete/dkim]
+
+Using this endpoint a existing DKIM key can be deleted
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["mailcow.de"]
+
++ Request (application/json)
+
+    + Headers
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "dkim",
+                  "delete",
+                  {
+                    "domains": [
+                      "mailcow.de"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "dkim_removed",
+                  "mailcow.de"
+                ]
+              }
+            ]
