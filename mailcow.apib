@@ -1508,7 +1508,7 @@ You can delete one or more sync jobs.
 
 ## Group Fordwarding Hosts
 
-### Get all Forwarding Hosts [GET /api/v1/get/fwdhost/all]
+### Get Forwarding Hosts [GET /api/v1/get/fwdhost/all]
 
 You can list all Forwarding Hosts in your system.
 
@@ -1536,7 +1536,7 @@ You can list all Forwarding Hosts in your system.
             ]
 
 
-### Add new Forward host [POST /api/v1/add/fwdhost]
+### Add Forward Host [POST /api/v1/add/fwdhost]
 
 Add a new Forwarding host to mailcow. You can chose to enable or disable spam filtering of incoming emails by specifing `filter_spam` 0 = inactive, 1 = active.
 
@@ -1839,7 +1839,7 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
 
 ## Group Queue Manager
 
-### Get mail queue [GET /api/v1/get/mailq/all]
+### Get Queue [GET /api/v1/get/mailq/all]
 
 Get the current mail queue and everything it contains.
 
@@ -1911,9 +1911,9 @@ This API uses the command: `postsuper -d`
 
 ## Group Quarantine
 
-### Get e-mails in Quarantine [GET /api/v1/get/quarantine/all]
+### Get mails in Quarantine [GET /api/v1/get/quarantine/all]
 
-Get all e-mails that are currently in Quarantine.
+Get all mails that are currently in Quarantine.
 
 + Request (application/json)
 
@@ -1923,9 +1923,9 @@ Get all e-mails that are currently in Quarantine.
 
 ## Group Fail2Ban
 
-### Get Fail2Ban config [GET /api/v1/get/fail2ban]
+### Get Fail2Ban Config [GET /api/v1/get/fail2ban]
 
-Gets the current fail2ban configuration.
+Gets the current Fail2Ban configuration.
 
 + Request (application/json)
 
@@ -1953,9 +1953,9 @@ Gets the current fail2ban configuration.
 
 ## Group DKIM
 
-### Generate new DKIM key [POST /api/v1/add/dkim]
+### Generate DKIM Key [POST /api/v1/add/dkim]
 
-Using this endpoint you can create DKIM generate new DKIM keys.
+Using this endpoint you can generate new DKIM keys.
 
 + Request (application/json)
 
@@ -2000,9 +2000,9 @@ Using this endpoint you can create DKIM generate new DKIM keys.
               }
             ]
 
-### Duplicate DKIM key [POST /api/v1/add/dkim_duplicate]
+### Duplicate DKIM Key [POST /api/v1/add/dkim_duplicate]
 
-Using this endpoint you can duplicate the DKIM key of one domain.
+Using this endpoint you can duplicate the DKIM Key of one domain.
 
 + Request (application/json)
 
@@ -2045,9 +2045,9 @@ Using this endpoint you can duplicate the DKIM key of one domain.
               }
             ]
 
-### Delete DKIM key [POST /api/v1/delete/dkim]
+### Delete DKIM Key [POST /api/v1/delete/dkim]
 
-Using this endpoint a existing DKIM key can be deleted
+Using this endpoint a existing DKIM Key can be deleted
 
 + Request (application/json)
 
