@@ -1870,9 +1870,9 @@ This API uses the command: `postqueue -f`
           "action":"flush"
         }
 
-+ Request (application/json)
++ Response 200 (application/json)
 
-    + Headers
+    + Body
 
         {
           "type": "success",
@@ -1900,9 +1900,9 @@ This API uses the command: `postsuper -d`
                 "action":"super_delete"
             }
 
-+ Request (application/json)
++ Response 200 (application/json)
 
-    + Headers
+    + Body
 
         {
           "type": "success",
@@ -1937,19 +1937,19 @@ Gets the current fail2ban configuration.
 
     + Body
 
-{
-  "ban_time": 604800,
-  "netban_ipv4": 32,
-  "netban_ipv6": 128,
-  "max_attempts": 1,
-  "retry_window": 7200,
-  "whitelist": "1.1.1.1",
-  "blacklist": "45.82.153.37\/32\n92.118.38.52\/32",
-  "perm_bans": [
-    "45.82.153.37\/32",
-    "92.118.38.52\/32"
-  ]
-}
+            {
+              "ban_time": 604800,
+              "netban_ipv4": 32,
+              "netban_ipv6": 128,
+              "max_attempts": 1,
+              "retry_window": 7200,
+              "whitelist": "1.1.1.1",
+              "blacklist": "45.82.153.37\/32\n92.118.38.52\/32",
+              "perm_bans": [
+                "45.82.153.37\/32",
+                "92.118.38.52\/32"
+              ]
+            }
 
 ## Group DKIM
 
@@ -1977,9 +1977,9 @@ Using this endpoint you can create DKIM generate new DKIM keys.
                 "key_size":"2048"
             }
 
-+ Request (application/json)
++ Response 200 (application/json)
 
-    + Headers
+    + Body
 
             [
               {
@@ -2022,9 +2022,9 @@ Using this endpoint you can duplicate the DKIM key of one domain.
                 "to_domain":"awesomecow.de"
             }
 
-+ Request (application/json)
++ Response 200 (application/json)
 
-    + Headers
+    + Body
 
             [
              {
@@ -2059,9 +2059,9 @@ Using this endpoint a existing DKIM key can be deleted
 
             ["mailcow.de"]
 
-+ Request (application/json)
++ Response 200 (application/json)
 
-    + Headers
+    + Body
 
             [
               {
@@ -2078,6 +2078,128 @@ Using this endpoint a existing DKIM key can be deleted
                 "msg": [
                   "dkim_removed",
                   "mailcow.de"
+                ]
+              }
+            ]
+
+## Group Domain admin
+
+### Get list Domain Admins [GET /api/v1/get/domain-admin/all]
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "username": "testadmin",
+                "tfa_active": "&#10005;",
+                "active": "&#10003;",
+                "tfa_active_int": null,
+                "active_int": 1,
+                "created": "2019-10-02 10:29:41",
+                "selected_domains": [
+                  "mailcow.de"
+                ],
+                "unselected_domains": [
+                  "awesomemailcow.de",
+                  "mailcowisgreat.de"
+                ]
+              }
+            ]
+
+### Create Domain Admin user [POST /api/v1/add/domain-admin]
+
+Using this endpoint you can create a new Domain Admin user. This user has full control over a domain, and can create new mailboxes and aliases.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + username (string) - the username for the admin user
+        + domains (string) - the domains the user should be a admin of
+        + password (string) - domain admin user password
+        + password2 (string) - domain admin user password
+        + active (number) - 1 for a active user account 0 for a disabled user account
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "username": "testadmin",
+                "domains": "mailcow.de",
+                "password": "supersecurepw",
+                "password2": "supersecurepw",
+                "active": "1"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "domain_admin",
+                  "add",
+                  {
+                    "username": "testadmin",
+                    "domains": "mailcow.de",
+                    "password": "*",
+                    "password2": "*",
+                    "active": "1"
+                  }
+                ],
+                "msg": [
+                  "domain_admin_added",
+                  "testadmin"
+                ]
+              }
+            ]
+
+### Delete Domain Admin [POST /api/v1/delete/domain-admin]
+
+Using this endpoint a existing Domain Admin user can be deleted.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["testadmin"]
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "domain_admin",
+                  "delete",
+                  {
+                    "username": [
+                      "testadmin"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "domain_admin_removed",
+                  "testadmin"
                 ]
               }
             ]
