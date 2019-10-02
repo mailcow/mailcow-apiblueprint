@@ -1837,7 +1837,7 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
               }
             ]
 
-## Queue manager
+## Group Queue Manager
 
 ### Get mail queue [GET /api/v1/get/mailq/all]
 
@@ -1909,7 +1909,7 @@ This API uses the command: `postsuper -d`
           "msg": "Task completed"
         }
 
-## Quarantine
+## Group Quarantine
 
 ### Get e-mails in Quarantine [GET /api/v1/get/quarantine/all]
 
@@ -1921,7 +1921,7 @@ Get all e-mails that are currently in Quarantine.
     
             X-API-Key: api-key-string
 
-## Fail2ban
+## Group Fail2Ban
 
 ### Get Fail2Ban config [GET /api/v1/get/fail2ban]
 
@@ -1951,7 +1951,7 @@ Gets the current fail2ban configuration.
   ]
 }
 
-## DKIM
+## Group DKIM
 
 ### Generate new DKIM key [POST /api/v1/add/dkim]
 
