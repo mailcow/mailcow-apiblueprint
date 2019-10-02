@@ -2243,7 +2243,7 @@ Using this endpoint you can create a BCC map to forward all mails via a bcc for 
         
         + local_dest (string) - the domain which emails should be forwarded
         + type (string) - the type of bcc map can be `sender` or `recipient`
-        + bcc_dest (string) - domain admin user password
+        + bcc_dest (string) - the email address where all mails should be send to
         + active (number) - 1 for a active user account 0 for a disabled user account
 
     + Headers
@@ -2283,7 +2283,7 @@ Using this endpoint you can create a BCC map to forward all mails via a bcc for 
 
 ## Delete BCC Map [POST /api/v1/delete/bcc]
 
-Using this endpoint you can delete a BCC map, for this you have to know its id. You can get the ID using the GET method.
+Using this endpoint you can delete a BCC map, for this you have to know its ID. You can get the ID using the GET method.
 
 + Request (application/json)
 
@@ -2315,6 +2315,118 @@ Using this endpoint you can delete a BCC map, for this you have to know its id. 
                 "msg": [
                   "bcc_deleted",
                   "4"
+                ]
+              }
+            ]
+
+## Get Recipient Map [GET /api/v1/get/recipient_map/all]
+
+Using this endpoint you can get all recipient maps.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "id": 3,
+                "recipient_map_old": "recipient@mailcow.tld",
+                "recipient_map_new": "target@mailcow.tld",
+                "active_int": 1,
+                "active": "&#10003;",
+                "created": "2019-10-02 22:06:29",
+                "modified": null
+              }
+            ]
+
+## Create Recipient Map [POST /api/v1/add/recipient_map]
+
+Using this endpoint you can create a recipient map to forward all mails from one email address to another.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + recipient_map_old (string) - the email address which emails should be forwarded
+        + recipient_map_new (string) - the email address that should receive the forwarded emails
+        + active (number) - 1 for a active user account 0 for a disabled user account
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "recipient_map_old": "recipient@mailcow.tld",
+                "recipient_map_new": "target@mailcow.tld",
+                "active": "1"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+               {
+                "type": "success",
+                "log": [
+                  "recipient_map",
+                  "add",
+                  {
+                    "recipient_map_old": "recipient@mailcow.tld",
+                    "recipient_map_new": "target@mailcow.tld",
+                    "active": "1"
+                  },
+                  null
+                ],
+                "msg": [
+                  "recipient_map_entry_saved",
+                  "recipient@mailcow.tld"
+                ]
+              }
+            ]
+
+## Delete Recipient Map [POST /api/v1/delete/recipient_map]
+
+Using this endpoint you can delete a recipient map, for this you have to know its ID. You can get the ID using the GET method.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["1"]
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                  {
+                "type": "success",
+                "log": [
+                  "recipient_map",
+                  "delete",
+                  {
+                    "id": [
+                      "1"
+                    ]
+                  },
+                  null
+                ],
+                "msg": [
+                  "recipient_map_entry_deleted",
+                  "1"
                 ]
               }
             ]
