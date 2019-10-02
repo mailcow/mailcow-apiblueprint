@@ -1972,7 +1972,7 @@ Using this endpoint you can generate new DKIM keys.
     + Body
 
             {
-                "domains":"mailcow.de",
+                "domains":"mailcow.tld",
                 "dkim_selector":"dkim",
                 "key_size":"2048"
             }
@@ -2018,8 +2018,8 @@ Using this endpoint you can duplicate the DKIM Key of one domain.
     + Body
 
             {
-                "from_domain":"mailcow.de",
-                "to_domain":"awesomecow.de"
+                "from_domain":"mailcow.tld",
+                "to_domain":"awesomecow.tld"
             }
 
 + Response 200 (application/json)
@@ -2033,14 +2033,14 @@ Using this endpoint you can duplicate the DKIM Key of one domain.
                   "dkim",
                   "duplicate",
                   {
-                    "from_domain": "mailcow.de",
-                    "to_domain": "awesomecow.de"
+                    "from_domain": "mailcow.tld",
+                    "to_domain": "awesomecow.tld"
                   }
                 ],
                 "msg": [
                   "dkim_duplicated",
-                  "mailcow.de",
-                  "awesomecow.de"
+                  "mailcow.tld",
+                  "awesomecow.tld"
                 ]
               }
             ]
@@ -2057,7 +2057,7 @@ Using this endpoint a existing DKIM Key can be deleted
 
     + Body
 
-            ["mailcow.de"]
+            ["mailcow.tld"]
 
 + Response 200 (application/json)
 
@@ -2071,13 +2071,13 @@ Using this endpoint a existing DKIM Key can be deleted
                   "delete",
                   {
                     "domains": [
-                      "mailcow.de"
+                      "mailcow.tld"
                     ]
                   }
                 ],
                 "msg": [
                   "dkim_removed",
-                  "mailcow.de"
+                  "mailcow.tld"
                 ]
               }
             ]
@@ -2105,7 +2105,7 @@ Using this endpoint a existing DKIM Key can be deleted
                 "active_int": 1,
                 "created": "2019-10-02 10:29:41",
                 "selected_domains": [
-                  "mailcow.de"
+                  "mailcow.tld"
                 ],
                 "unselected_domains": [
                   "awesomemailcow.de",
@@ -2136,7 +2136,7 @@ Using this endpoint you can create a new Domain Admin user. This user has full c
 
             {
                 "username": "testadmin",
-                "domains": "mailcow.de",
+                "domains": "mailcow.tld",
                 "password": "supersecurepw",
                 "password2": "supersecurepw",
                 "active": "1"
@@ -2154,7 +2154,7 @@ Using this endpoint you can create a new Domain Admin user. This user has full c
                   "add",
                   {
                     "username": "testadmin",
-                    "domains": "mailcow.de",
+                    "domains": "mailcow.tld",
                     "password": "*",
                     "password2": "*",
                     "active": "1"
@@ -2200,6 +2200,121 @@ Using this endpoint a existing Domain Admin user can be deleted.
                 "msg": [
                   "domain_admin_removed",
                   "testadmin"
+                ]
+              }
+            ]
+
+## Group Address Rewriting
+
+## Get BCC Map [GET /api/v1/get/bcc/all]
+
+Using this endpoint you can get all BCC maps.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+            [
+              {
+                "id": 3,
+                "local_dest": "@mailcow.tld",
+                "bcc_dest": "bcc@awesomecow.tld",
+                "active_int": 1,
+                "active": "&#10003;",
+                "type": "sender",
+                "created": "2019-10-02 21:44:34",
+                "domain": "mailcow.tld",
+                "modified": null
+              }
+            ]
+
+## Create BCC Map [POST /api/v1/add/bcc]
+
+Using this endpoint you can create a BCC map to forward all mails via a bcc for a given domain.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + local_dest (string) - the domain which emails should be forwarded
+        + type (string) - the type of bcc map can be `sender` or `recipient`
+        + bcc_dest (string) - domain admin user password
+        + active (number) - 1 for a active user account 0 for a disabled user account
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "local_dest": "mailcow.tld",
+                "type": "sender",
+                "bcc_dest": "bcc@awesomecow.tld",
+                "active": "1"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "bcc",
+                  "add",
+                  {
+                    "local_dest": "mailcow.tld",
+                    "type": "sender",
+                    "bcc_dest": "bcc@awesomecow.tld",
+                    "active": "1"
+                  },
+                  null
+                ],
+                "msg": "bcc_saved"
+              }
+            ]
+
+## Delete BCC Map [POST /api/v1/delete/bcc]
+
+Using this endpoint you can delete a BCC map, for this you have to know its id. You can get the ID using the GET method.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["3"]
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "bcc",
+                  "delete",
+                  {
+                    "id": [
+                      "4"
+                    ]
+                  },
+                  null
+                ],
+                "msg": [
+                  "bcc_deleted",
+                  "4"
                 ]
               }
             ]
