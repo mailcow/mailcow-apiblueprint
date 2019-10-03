@@ -2195,6 +2195,23 @@ Get the current mail queue and everything it contains.
     
             X-API-Key: api-key-string
 
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "queue_name": "incoming",
+                "queue_id": "B98C6260CA1",
+                "arrival_time": 1570091234,
+                "message_size": 1848,
+                "sender": "sender@mailcow.tld",
+                "recipients": [
+                  "recipient@awesomecow.tld"
+                ]
+              }
+            ]
+
 ### Flush Queue [POST /api/v1/edit/mailq]
 
 Using this API you can flush the current mail queue. This will try to deliver all mails currently in it.
