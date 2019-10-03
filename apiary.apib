@@ -1635,14 +1635,10 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
 
             [
                 {
-                "JSON": [
-                    {
-                        "time": "1569937433",
-                        "program": "postfix/qmgr",
-                        "priority": "info",
-                        "message": "EF1711500458: removed"
-                        }
-                    ]
+                    "time": "1569937433",
+                    "program": "postfix/qmgr",
+                    "priority": "info",
+                    "message": "EF1711500458: removed"
                 }
             ]
 
@@ -1901,20 +1897,20 @@ This API uses the command: `postqueue -f`
 
     + Body
 
-        { 
-          "action":"flush"
-        }
+            { 
+              "action":"flush"
+            }
 
 + Response 200 (application/json)
 
     + Body
 
-        {
-          "type": "success",
-          "msg": "Task completed"
-        }
+            {
+              "type": "success",
+              "msg": "Task completed"
+            }
 
-### Delete Queue [POST /api/v1/edit/mailq]
+### Delete Queue [POST /api/v1/delete/mailq]
 
 Using this API you can delete the current mail queue. This will delete all mails in it.
 This API uses the command: `postsuper -d`
