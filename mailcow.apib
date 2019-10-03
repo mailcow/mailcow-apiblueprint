@@ -2430,3 +2430,166 @@ Using this endpoint you can delete a recipient map, for this you have to know it
                 ]
               }
             ]
+
+
+
+## Group Outgoing TLS Policy Map Overrides
+
+## Get TLS Policy Map [GET /api/v1/get/tls-policy-map/all]
+
+Using this endpoint you can get all TLS policy map override maps.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "id": 1,
+                "dest": "mailcow.tld",
+                "policy": "encrypt",
+                "parameters": "",
+                "active_int": 1,
+                "active": "&#10003;",
+                "created": "2019-10-03 08:42:12",
+                "modified": null
+              }
+            ]
+
+## Create TLS Policy Map [POST /api/v1/add/tls-policy-map]
+
+Using this endpoint you can create a TLS policy map override.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + dest (string) - the target domain or email address
+        + policy (enum) - the policy
+            + none
+            + may
+            + encrypt
+            + dane
+            + dane-only
+            + fingerprint
+            + verify
+            + secure
+        + parameters (string) - custom parameters you find out more about them [here](http://www.postfix.org/postconf.5.html#smtp_tls_policy_maps)
+        + active (number) - 1 for a active user account 0 for a disabled user account
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "dest": "220022.xyz",
+                "policy": "encrypt",
+                "parameters": "",
+                "active": "1"
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "tls_policy_maps",
+                  "add",
+                  {
+                    "dest": "mailcow.tld",
+                    "policy": "encrypt",
+                    "parameters": "",
+                    "active": "1"
+                  },
+                  null
+                ],
+                "msg": [
+                  "tls_policy_map_entry_saved",
+                  "mailcow.tld"
+                ]
+              }
+            ]
+
+## Delete TLS Policy Map [POST /api/v1/delete/tls-policy-map]
+
+Using this endpoint you can delete a TLS Policy Map, for this you have to know its ID. You can get the ID using the GET method.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of tls policy maps you want to delete
+            + id
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["3"]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "tls_policy_maps",
+                  "delete",
+                  {
+                    "id": [
+                      "1"
+                    ]
+                  },
+                  null
+                ],
+                "msg": [
+                  "tls_policy_map_entry_deleted",
+                  "1"
+                ]
+              }
+            ]
