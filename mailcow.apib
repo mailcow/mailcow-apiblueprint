@@ -333,6 +333,11 @@ You can delete one or more domains.
 
 + Request (application/json)
 
+    + Attributes
+        
+        + items (array) - contains list of domains you want to delete
+            + domain_name
+
     + Headers
     
             X-API-Key: api-key-string
@@ -528,6 +533,11 @@ You can delete one o more domain policies.
 + Request (application/json)
 
     Delete domain policy by ID
+
+    + Attributes
+        
+        + items (array) - contains list of domain policys you want to delete
+            + id
 
     + Headers
     
@@ -828,6 +838,11 @@ You can update one or more mailboxes per request. You can also send just attribu
 You can delete one or more mailboxes.
 
 + Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of mailboxes you want to delete
+            + local_part@domain
 
     + Headers
     
@@ -1478,6 +1493,11 @@ You can delete one or more sync jobs.
 
 + Request (application/json)
 
+    + Attributes
+        
+        + items (array) - contains list of aliases you want to delete
+            + id
+
     + Headers
     
             X-API-Key: api-key-string
@@ -1559,6 +1579,21 @@ Add a new Forwarding host to mailcow. You can chose to enable or disable spam fi
             }
 
 + Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
 
     + Body
 
@@ -1904,10 +1939,10 @@ This API uses the command: `postsuper -d`
 
     + Body
 
-        {
-          "type": "success",
-          "msg": "Task completed"
-        }
+            {
+              "type": "success",
+              "msg": "Task completed"
+            }
 
 ## Group Quarantine
 
@@ -1979,6 +2014,21 @@ Using this endpoint you can generate new DKIM keys.
 
 + Response 200 (application/json)
 
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
     + Body
 
             [
@@ -2024,6 +2074,21 @@ Using this endpoint you can duplicate the DKIM Key of one domain.
 
 + Response 200 (application/json)
 
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
     + Body
 
             [
@@ -2060,6 +2125,21 @@ Using this endpoint a existing DKIM Key can be deleted
             ["mailcow.tld"]
 
 + Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
 
     + Body
 
@@ -2144,6 +2224,21 @@ Using this endpoint you can create a new Domain Admin user. This user has full c
 
 + Response 200 (application/json)
 
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
     + Body
 
             [
@@ -2173,6 +2268,11 @@ Using this endpoint a existing Domain Admin user can be deleted.
 
 + Request (application/json)
 
+    + Attributes
+        
+        + items (array) - contains list of usernames of the users you want to delete
+            + username
+
     + Headers
     
             X-API-Key: api-key-string
@@ -2182,6 +2282,21 @@ Using this endpoint a existing Domain Admin user can be deleted.
             ["testadmin"]
 
 + Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
 
     + Body
 
@@ -2219,6 +2334,7 @@ Using this endpoint you can get all BCC maps.
 + Response 200 (application/json)
 
     + Body
+
             [
               {
                 "id": 3,
@@ -2261,6 +2377,21 @@ Using this endpoint you can create a BCC map to forward all mails via a bcc for 
 
 + Response 200 (application/json)
 
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
     + Body
 
             [
@@ -2287,6 +2418,11 @@ Using this endpoint you can delete a BCC map, for this you have to know its ID. 
 
 + Request (application/json)
 
+    + Attributes
+        
+        + items (array) - contains list of bcc maps you want to delete
+            + id
+
     + Headers
     
             X-API-Key: api-key-string
@@ -2296,6 +2432,21 @@ Using this endpoint you can delete a BCC map, for this you have to know its ID. 
             ["3"]
 
 + Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
 
     + Body
 
@@ -2371,6 +2522,21 @@ Using this endpoint you can create a recipient map to forward all mails from one
 
 + Response 200 (application/json)
 
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
     + Body
 
             [
@@ -2399,6 +2565,11 @@ Using this endpoint you can delete a recipient map, for this you have to know it
 
 + Request (application/json)
 
+    + Attributes
+        
+        + items (array) - contains list of recipient maps you want to delete
+            + id
+
     + Headers
     
             X-API-Key: api-key-string
@@ -2408,6 +2579,21 @@ Using this endpoint you can delete a recipient map, for this you have to know it
             ["1"]
 
 + Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
 
     + Body
 
