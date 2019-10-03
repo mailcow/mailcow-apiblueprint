@@ -1653,6 +1653,321 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
     
             X-API-Key: api-key-string
 
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              {
+                "time_virtual": 0.235653,
+                "rcpt_mime": [
+                  "github@mailcow.tld"
+                ],
+                "message-id": "cm.0521259281087.phrkjuk.wdljulyl.i@cmail20.com",
+                "ip": "1.1.1.1",
+                "rcpt_smtp": [
+                  "github@mailcow.tld"
+                ],
+                "action": "soft reject",
+                "time_real": 2.856102,
+                "score": 11.59,
+                "is_skipped": false,
+                "size": 35513,
+                "user": "unknown",
+                "sender_mime": "noreply@github.com",
+                "symbols": {
+                  "FROM_NEQ_ENVFROM": {
+                    "metric_score": 0,
+                    "options": [
+                      "noreply@github.com",
+                      "GitHub-phrkjuk1wdljulyl1i@cmail20.com"
+                    ],
+                    "score": 0,
+                    "name": "FROM_NEQ_ENVFROM",
+                    "description": "From address is different to the envelope"
+                  },
+                  "FORGED_SENDER": {
+                    "metric_score": 0.3,
+                    "options": [
+                      "noreply@github.com",
+                      "GitHub-phrkjuk1wdljulyl1i@cmail20.com"
+                    ],
+                    "score": 0.3,
+                    "name": "FORGED_SENDER",
+                    "description": "Sender is forged (different From: header and smtp MAIL FROM: addresses)"
+                  },
+                  "RWL_MAILSPIKE_NEUTRAL": {
+                    "metric_score": 0,
+                    "options": [
+                      "17.21.55.203.rep.mailspike.net : 127.0.0.13"
+                    ],
+                    "score": 0,
+                    "name": "RWL_MAILSPIKE_NEUTRAL",
+                    "description": "Neutral result from Mailspike"
+                  },
+                  "HAS_LIST_UNSUB": {
+                    "metric_score": -0.01,
+                    "score": -0.01,
+                    "name": "HAS_LIST_UNSUB",
+                    "description": "Has List-Unsubscribe header"
+                  },
+                  "URI_COUNT_ODD": {
+                    "metric_score": 1,
+                    "options": [
+                      "25"
+                    ],
+                    "score": 1,
+                    "name": "URI_COUNT_ODD",
+                    "description": "Odd number of URIs in multipart\/alternative message"
+                  },
+                  "MIME_TRACE": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "MIME_TRACE",
+                    "options": [
+                      "0:+",
+                      "1:+",
+                      "2:~"
+                    ]
+                  },
+                  "R_DKIM_ALLOW": {
+                    "metric_score": -0.2,
+                    "options": [
+                      "github.com:s=cm",
+                      "cmail2.com:s=cs2013"
+                    ],
+                    "score": 0,
+                    "name": "R_DKIM_ALLOW",
+                    "description": "DKIM verification succeed"
+                  },
+                  "FROM_HAS_DN": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "FROM_HAS_DN",
+                    "description": "From header has a display name"
+                  },
+                  "MIME_GOOD": {
+                    "metric_score": -0.1,
+                    "options": [
+                      "multipart\/alternative",
+                      "text\/plain"
+                    ],
+                    "score": -0.1,
+                    "name": "MIME_GOOD",
+                    "description": "Known content-type"
+                  },
+                  "REPLYTO_ADDR_EQ_FROM": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "REPLYTO_ADDR_EQ_FROM",
+                    "description": "Reply-To header is identical to SMTP From"
+                  },
+                  "TO_MATCH_ENVRCPT_ALL": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "TO_MATCH_ENVRCPT_ALL",
+                    "description": "All of the recipients match the envelope"
+                  },
+                  "ASN": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "ASN",
+                    "options": [
+                      "asn:55819, ipnet:203.55.21.0\/24, country:AU"
+                    ]
+                  },
+                  "HTML_SHORT_LINK_IMG_1": {
+                    "metric_score": 2,
+                    "score": 2,
+                    "name": "HTML_SHORT_LINK_IMG_1",
+                    "description": "Short html part (0..1K) with a link to an image"
+                  },
+                  "SCHAALIT_URI_823": {
+                    "metric_score": 5,
+                    "score": 5,
+                    "name": "SCHAALIT_URI_823",
+                    "options": [
+                      "SCHAALIT_URI_823"
+                    ]
+                  },
+                  "DMARC_POLICY_ALLOW": {
+                    "metric_score": -0.5,
+                    "options": [
+                      "github.com",
+                      "none"
+                    ],
+                    "score": 0,
+                    "name": "DMARC_POLICY_ALLOW",
+                    "description": "DMARC permit policy"
+                  },
+                  "MANY_INVISIBLE_PARTS": {
+                    "metric_score": 1,
+                    "options": [
+                      "4"
+                    ],
+                    "score": 0.3,
+                    "name": "MANY_INVISIBLE_PARTS",
+                    "description": "Many parts are visually hidden"
+                  },
+                  "DKIM_TRACE": {
+                    "metric_score": 0,
+                    "options": [
+                      "github.com:+",
+                      "cmail2.com:+"
+                    ],
+                    "score": 0,
+                    "name": "DKIM_TRACE",
+                    "description": "DKIM trace symbol"
+                  },
+                  "MX_GOOD": {
+                    "metric_score": -0.01,
+                    "options": [
+                      "mx20.inbound.createsend.com",
+                      "mx21.inbound.createsend.com"
+                    ],
+                    "score": -0.01,
+                    "name": "MX_GOOD",
+                    "description": "MX was ok"
+                  },
+                  "TO_DN_ALL": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "TO_DN_ALL",
+                    "description": "All the recipients have display names"
+                  },
+                  "RCPT_MAILCOW_DOMAIN": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "RCPT_MAILCOW_DOMAIN",
+                    "options": [
+                      "gc-mc.de"
+                    ]
+                  },
+                  "XM_UA_NO_VERSION": {
+                    "metric_score": 0.01,
+                    "score": 0.01,
+                    "name": "XM_UA_NO_VERSION",
+                    "description": "X-Mailer\/User-Agent has no version"
+                  },
+                  "HAS_REPLYTO": {
+                    "metric_score": 0,
+                    "options": [
+                      "noreply@github.com"
+                    ],
+                    "score": 0,
+                    "name": "HAS_REPLYTO",
+                    "description": "Has Reply-To header"
+                  },
+                  "R_SPF_ALLOW": {
+                    "metric_score": -0.2,
+                    "options": [
+                      "+ip4:203.55.21.0\/24"
+                    ],
+                    "score": 0,
+                    "name": "R_SPF_ALLOW",
+                    "description": "SPF verification allows sending"
+                  },
+                  "URIBL_GREY": {
+                    "metric_score": 1.5,
+                    "options": [
+                      "cmail2.com.multi.uribl.com",
+                      "cmail20.com.multi.uribl.com",
+                      "updatemyprofile.com.multi.uribl.com"
+                    ],
+                    "score": 1.5,
+                    "name": "URIBL_GREY",
+                    "description": "uribl.com grey url"
+                  },
+                  "CLAM_VIRUS_FAIL": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "CLAM_VIRUS_FAIL",
+                    "options": [
+                      "failed to scan and retransmits exceed"
+                    ]
+                  },
+                  "GREYLIST": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "GREYLIST",
+                    "options": [
+                      "greylisted",
+                      "Wed, 25 Sep 2019 19:27:10 GMT",
+                      "new record"
+                    ]
+                  },
+                  "ARC_NA": {
+                    "metric_score": 0,
+                    "score": 0,
+                    "name": "ARC_NA",
+                    "description": "ARC signature absent"
+                  },
+                  "RCVD_COUNT_ZERO": {
+                    "metric_score": 0,
+                    "options": [
+                      "0"
+                    ],
+                    "score": 0,
+                    "name": "RCVD_COUNT_ZERO",
+                    "description": "Message has no Received headers"
+                  },
+                  "BAD_REP_POLICIES": {
+                    "metric_score": 0.1,
+                    "score": 0.1,
+                    "name": "BAD_REP_POLICIES",
+                    "description": "Contains valid policies but are also marked by fuzzy\/bayes\/surbl\/rbl"
+                  },
+                  "RCPT_COUNT_ONE": {
+                    "metric_score": 0,
+                    "options": [
+                      "1"
+                    ],
+                    "score": 0,
+                    "name": "RCPT_COUNT_ONE",
+                    "description": "One recipient"
+                  },
+                  "RBL_UCEPROTECT_LEVEL1": {
+                    "metric_score": 3.5,
+                    "score": 3.5,
+                    "name": "RBL_UCEPROTECT_LEVEL1",
+                    "options": [
+                      "17.21.55.203.dnsbl-1.uceprotect.net"
+                    ]
+                  },
+                  "DWL_DNSWL_HI": {
+                    "metric_score": -3.5,
+                    "options": [
+                      "github.com.dwl.dnswl.org : 127.0.9.3"
+                    ],
+                    "score": -3.5,
+                    "name": "DWL_DNSWL_HI",
+                    "description": "Message has a valid dkim signature originated from domain listed at https:\/\/www.dnswl.org, high trust"
+                  },
+                  "RCVD_IN_DNSWL_NONE": {
+                    "metric_score": 0,
+                    "options": [
+                      "17.21.55.203.list.dnswl.org : 127.0.15.0"
+                    ],
+                    "score": 0,
+                    "name": "RCVD_IN_DNSWL_NONE",
+                    "description": "Sender listed at https:\/\/www.dnswl.org, no trust"
+                  },
+                  "RBL_UCEPROTECT_LEVEL2": {
+                    "metric_score": 1.5,
+                    "score": 1.5,
+                    "name": "RBL_UCEPROTECT_LEVEL2",
+                    "options": [
+                      "17.21.55.203.dnsbl-2.uceprotect.net"
+                    ]
+                  }
+                },
+                "subject": "[mailcow/mailcow-dockerized] Unable to change name of alias email address (#2997)",
+                "required_score": 15,
+                "unix_time": 1569439327,
+                "sender_smtp": "GitHub-phrkjuk1wdljulyl1i@cmail20.com"
+              }
+            }
+
 ### Get Dovecot logs [GET /api/v1/get/logs/dovecot]
 
 This Api endpoint lists all Dovecot logs.  
