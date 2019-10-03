@@ -3107,3 +3107,143 @@ Using this endpoint you can delete a TLS Policy Map, for this you have to know i
                 ]
               }
             ]
+
+## Group oAuth Clients
+
+## Get oAuth Clients [GET /api/v1/get/oauth2-client/all]
+
+Using this endpoint you can get all oAuth clients.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "id": 1,
+                "client_id": "17c76aaa88c0",
+                "client_secret": "73fc668a88147e32a31ff80c",
+                "redirect_uri": "https:\/\/mailcow.tld",
+                "grant_types": null,
+                "scope": "profile",
+                "user_id": null
+              }
+            ]
+
+## Create oAuth Client [POST /api/v1/add/oauth2-client]
+
+Using this endpoint you can create a oAuth clients.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + redirect_uri (string) - the uri where you should be redirected after oAuth
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "redirect_uri":"https://mailcow.tld"
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "oauth2",
+                  "add",
+                  "client",
+                  {
+                    "redirect_uri": "https:\/\/mailcow.tld"
+                  }
+                ],
+                "msg": "Added client access"
+              }
+            ]
+
+## Delete oAuth Client [POST /api/v1/delete/oauth2-client]
+
+Using this endpoint you can delete a oAuth client, for this you have to know its ID. You can get the ID using the GET method.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of oAuth clients you want to delete
+            + id
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["3"]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "oauth2",
+                  "delete",
+                  "client",
+                  {
+                    "id": [
+                      "1"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "items_deleted",
+                  "1"
+                ]
+              }
+            ]
