@@ -12,9 +12,17 @@ In order to use this API you have to create a API key and add your IP Address to
 
 ## Group Domains
 
-### List all domains [GET /api/v1/get/domain/all]
+### Get domains [GET /api/v1/get/domain/{id}]
 
 You can list all domains existing in system.
+
++ Parameters
+
+    + id (string, required) - id of entry you want to get use `all` to get all entries
+        + Default: `all`
+        + Members
+            + `all`
+            + `mailcow.tld`
 
 + Request (application/json)
 
@@ -81,7 +89,7 @@ You can list all domains existing in system.
             }
         ]
 
-### Create new domain [POST /api/v1/add/domain]
+### Create domain [POST /api/v1/add/domain]
 
 You may create your own domain using this action. It takes a JSON object containing a domain informations.
 
@@ -952,9 +960,19 @@ You can update one or more mailboxes per request.
 
 ## Group Aliases
 
-### List all aliases [GET /api/v1/get/alias/all]
+### GET aliases [GET /api/v1/get/alias/{id}]
 
-You can list all mailbox aliases existing in system.
+You can list mailbox aliases existing in system.
+
++ Parameters
+
+    + id (string, required) - id of entry you want to get use `all` to get all entries
+        + Members
+            + `all`
+            + `1`
+            + `2`
+            + `5`
+            + `10`
 
 + Request (application/json)
 
@@ -1228,7 +1246,7 @@ You can delete one or more aliases.
 
 ## Group Sync jobs
 
-### List all sync jobs [GET /api/v1/get/syncjobs/all/no_log]
+### Get sync jobs [GET /api/v1/get/syncjobs/all/no_log]
 
 You can list all syn jobs existing in system.
 
@@ -2689,9 +2707,20 @@ Using this endpoint a existing Domain Admin user can be deleted.
 
 ## Group Address Rewriting
 
-### Get BCC Map [GET /api/v1/get/bcc/all]
+### Get BCC Map [GET /api/v1/get/bcc/{id}]
 
 Using this endpoint you can get all BCC maps.
+
++ Parameters
+
+    + id (string, required) - id of entry you want to get use `all` to get all entries
+        + Default: `all`
+        + Members
+            + `all`
+            + `1`
+            + `2`
+            + `5`
+            + `10`
 
 + Request (application/json)
 
@@ -2838,9 +2867,20 @@ Using this endpoint you can delete a BCC map, for this you have to know its ID. 
               }
             ]
 
-### Get Recipient Map [GET /api/v1/get/recipient_map/all]
+### Get Recipient Map [GET /api/v1/get/recipient_map/{id}]
 
 Using this endpoint you can get all recipient maps.
+
++ Parameters
+
+    + id (string, required) - id of entry you want to get use `all` to get all entries
+        + Default: `all`
+        + Members
+            + `all`
+            + `1`
+            + `2`
+            + `5`
+            + `10`
 
 + Request (application/json)
 
@@ -2987,11 +3027,22 @@ Using this endpoint you can delete a recipient map, for this you have to know it
 
 
 
-### Group Outgoing TLS Policy Map Overrides
+## Group Outgoing TLS Policy Map Overrides
 
-## Get TLS Policy Map [GET /api/v1/get/tls-policy-map/all]
+### Get TLS Policy Map [GET /api/v1/get/tls-policy-map/{id}]
 
 Using this endpoint you can get all TLS policy map override maps.
+
++ Parameters
+
+    + id (string, required) - id of entry you want to get use `all` to get all entries
+        + Default: `all`
+        + Members
+            + `all`
+            + `1`
+            + `2`
+            + `5`
+            + `10`
 
 + Request (application/json)
 
@@ -3150,9 +3201,20 @@ Using this endpoint you can delete a TLS Policy Map, for this you have to know i
 
 ## Group oAuth Clients
 
-### Get oAuth Clients [GET /api/v1/get/oauth2-client/all]
+### Get oAuth Clients [GET /api/v1/get/oauth2-client/{id}]
 
 Using this endpoint you can get all oAuth clients.
+
++ Parameters
+
+    + id (string, required) - id of entry you want to get use `all` to get all entries
+        + Default: `all`
+        + Members
+            + `all`
+            + `1`
+            + `2`
+            + `5`
+            + `10`
 
 + Request (application/json)
 
@@ -3290,9 +3352,20 @@ Using this endpoint you can delete a oAuth client, for this you have to know its
 
 ## Group Routing
 
-### Get Sender-Dependent Transports [GET /api/v1/get/relayhost/all]
+### Get Sender-Dependent Transports [GET /api/v1/get/relayhost/{id}]
 
 Using this endpoint you can get all Sender-Dependent Transports.
+
++ Parameters
+
+    + id (string, required) - id of entry you want to get use `all` to get all entries
+        + Default: `all`
+        + Members
+            + `all`
+            + `1`
+            + `2`
+            + `5`
+            + `10`
 
 + Request (application/json)
 
@@ -3436,9 +3509,20 @@ Using this endpoint you can delete a Sender-Dependent Transport, for this you ha
               }
             ]
 
-## Get Transport Maps [GET /api/v1/get/transport/all]
+### Get Transport Maps [GET /api/v1/get/transport/{id}]
 
 Using this endpoint you can get all Transport Maps.
+
++ Parameters
+
+    + id (string, required) - id of entry you want to get use `all` to get all entries
+        + Default: `all`
+        + Members
+            + `all`
+            + `1`
+            + `2`
+            + `5`
+            + `10`
 
 + Request (application/json)
 
@@ -3587,5 +3671,34 @@ Using this endpoint you can delete a Transport Maps, for this you have to know i
                   "relayhost_removed",
                   "1"
                 ]
+              }
+            ]
+
+## Group Resources
+
+### Get Resources [GET /api/v1/get/resource/all]
+
+Using this endpoint you can get all Resources.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "name": "test@mailcow.tld",
+                "kind": "location",
+                "multiple_bookings": 0,
+                "description": "test",
+                "active": "&#10003;",
+                "active_int": 1,
+                "domain": "mailcow.tld",
+                "local_part": "test"
               }
             ]
