@@ -1,0 +1,10 @@
+html:
+  playground:
+    enabled: true
+    env: easy
+    environments:
+      easy:
+        playground: false
+        url: /
+      advanced:
+        url: /
