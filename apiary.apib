@@ -3290,7 +3290,7 @@ Using this endpoint you can delete a oAuth client, for this you have to know its
 
 ## Group Routing
 
-### Get Sender-Dependent Transports [GET /api/v1/get/relayhost]
+### Get Sender-Dependent Transports [GET /api/v1/get/relayhost/all]
 
 Using this endpoint you can get all Sender-Dependent Transports.
 
@@ -3422,6 +3422,160 @@ Using this endpoint you can delete a Sender-Dependent Transport, for this you ha
                 "type": "success",
                 "log": [
                   "relayhost",
+                  "delete",
+                  {
+                    "id": [
+                      "1"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "relayhost_removed",
+                  "1"
+                ]
+              }
+            ]
+
+## Get Transport Maps [GET /api/v1/get/transport/all]
+
+Using this endpoint you can get all Transport Maps.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "id": 1,
+                "destination": "example.org",
+                "nexthop": "host:25",
+                "username": "testuser",
+                "password": "supersecurepw",
+                "active_int": 1,
+                "lookup_mx_int": 0,
+                "password_short": "sup...",
+                "active": "&#10003;",
+                "lookup_mx": "&#10005;"
+              }
+            ]
+
+### Create Transport Maps [POST /api/v1/add/transport/all]
+
+Using this endpoint you can create Sender-Dependent Transports.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + destination (string) - 
+        + nexthop (string) - 
+        + username (string) - the username used to authenticate
+        + password (string) - the password for the smtp user
+        + active (number) - 1 for a active transport map 0 for a disabled transport map
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "destination": "example.org",
+                "nexthop": "host:25",
+                "username": "testuser",
+                "password": "supersecurepw",
+                "active": "1"
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "transport",
+                  "add",
+                  {
+                    "destination": "example2.org",
+                    "nexthop": "host:25",
+                    "username": "testuser",
+                    "password": "supersecurepw",
+                    "active": "1"
+                  }
+                ],
+                "msg": [
+                  "relayhost_added",
+                  ""
+                ]
+              }
+            ]
+
+### Delete Transport Maps [POST /api/v1/delete/transport]
+
+Using this endpoint you can delete a Transport Maps, for this you have to know its ID. You can get the ID using the GET method.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of transport maps you want to delete
+            + id
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["1"]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "transport",
                   "delete",
                   {
                     "id": [
