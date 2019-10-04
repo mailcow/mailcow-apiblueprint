@@ -1618,10 +1618,14 @@ Add a new Forwarding host to mailcow. You can chose to enable or disable spam fi
 
 ## Group Logs
 
-### Get Postfix logs [GET /api/v1/get/logs/postfix]
+### Get Postfix logs [GET /api/v1/get/logs/postfix/{count}]
 
 This Api endpoint lists all Postfix logs.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -1642,10 +1646,14 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
                 }
             ]
 
-### Get Rspamd logs [GET /api/v1/get/logs/rspamd-history]
+### Get Rspamd logs [GET /api/v1/get/logs/rspamd-history/{count}]
 
 This Api endpoint lists all Rspamd logs.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -1968,10 +1976,14 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
               }
             }
 
-### Get Dovecot logs [GET /api/v1/get/logs/dovecot]
+### Get Dovecot logs [GET /api/v1/get/logs/dovecot/{count}]
 
 This Api endpoint lists all Dovecot logs.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -1993,10 +2005,14 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
             ]
 
 
-### Get ACME logs [GET /api/v1/get/logs/acme]
+### Get ACME logs [GET /api/v1/get/logs/acme/{count}]
 
 This Api endpoint lists all ACME logs from issued Lets Enctypts certificates.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -2015,10 +2031,14 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
               }
             ]
 
-### Get SOGo logs [GET /api/v1/get/logs/sogo]
+### Get SOGo logs [GET /api/v1/get/logs/sogo/{count}]
 
 This Api endpoint lists all SOGo logs.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -2039,10 +2059,14 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
               }
             ]
 
-### Get Watchdog logs [GET /api/v1/get/logs/watchdog]
+### Get Watchdog logs [GET /api/v1/get/logs/watchdog/{count}]
 
 This Api endpoint lists all Watchdog logs.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -2073,10 +2097,14 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
               }
             ]
 
-### Get Api logs [GET /api/v1/get/logs/api]
+### Get Api logs [GET /api/v1/get/logs/api/{count}]
 
 This Api endpoint lists all Api logs.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -2098,10 +2126,14 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
               }
             ]
 
-### Get Ratelimit logs [GET /api/v1/get/logs/ratelimited]
+### Get Ratelimit logs [GET /api/v1/get/logs/ratelimited/{count}]
 
 This Api endpoint lists all Ratelimit logs.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -2130,10 +2162,14 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
               }
             ]
 
-### Get Netfilter logs [GET /api/v1/get/logs/netfilter]
+### Get Netfilter logs [GET /api/v1/get/logs/netfilter/{count}]
 
 This Api endpoint lists all Netfilter logs.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -2159,10 +2195,14 @@ Tip: You can limit how many logs you want to get by using `/<number>` at the end
             ]
 
 
-### Get Autodiscover logs [GET /api/v1/get/logs/autodiscover]
+### Get Autodiscover logs [GET /api/v1/get/logs/autodiscover/{count}]
 
 This Api endpoint lists all Autodiscover logs.  
-Tip: You can limit how many logs you want to get by using `/<number>` at the end of the api url.
+Tip: You can limit how many logs you want to get by using `/<count>` at the end of the api url.
+
++ Parameters
+
+    + count (number, optional) - Number of logs to return
 
 + Request (application/json)
 
@@ -2492,7 +2532,7 @@ Using this endpoint a existing DKIM Key can be deleted
 
 ## Group Domain admin
 
-### Get list Domain Admins [GET /api/v1/get/domain-admin/all]
+### Get Domain Admins [GET /api/v1/get/domain-admin/all]
 
 + Request (application/json)
 
