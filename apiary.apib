@@ -3287,3 +3287,151 @@ Using this endpoint you can delete a oAuth client, for this you have to know its
                 ]
               }
             ]
+
+## Group Routing
+
+### Get Sender-Dependent Transports [GET /api/v1/get/relayhost]
+
+Using this endpoint you can get all Sender-Dependent Transports.
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "id": 1,
+                "hostname": "mailcow.tld:25",
+                "username": "testuser",
+                "password": "supersecurepassword",
+                "active_int": 1,
+                "password_short": "tes...",
+                "active": "&#10003;",
+                "used_by_domains": ""
+              }
+            ]
+
+### Create Sender-Dependent Transports [POST /api/v1/add/relayhost]
+
+Using this endpoint you can create Sender-Dependent Transports.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + hostname (string) - the hostname of the smtp server with port
+        + username (string) - the username used to authenticate
+        + password (string) - the password for the smtp user
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "hostname": "mailcow.tld:25",
+                "username": "testuser",
+                "password": "supersecurepassword"
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "relayhost",
+                  "add",
+                  {
+                    "hostname": "mailcow.tld:25",
+                    "username": "testuser",
+                    "password": "supersecurepassword"
+                  }
+                ],
+                "msg": [
+                  "relayhost_added",
+                  ""
+                ]
+              }
+            ]
+
+### Delete Sender-Dependent Transports [POST /api/v1/delete/relayhost]
+
+Using this endpoint you can delete a Sender-Dependent Transport, for this you have to know its ID. You can get the ID using the GET method.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of Sender-Dependent Transport you want to delete
+            + id
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["1"]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "relayhost",
+                  "delete",
+                  {
+                    "id": [
+                      "1"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "relayhost_removed",
+                  "1"
+                ]
+              }
+            ]
