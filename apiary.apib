@@ -3095,7 +3095,7 @@ Using this endpoint you can create a TLS policy map override.
     + Body
 
             {
-                "dest": "220022.xyz",
+                "dest": "mailcow.tld",
                 "policy": "encrypt",
                 "parameters": "",
                 "active": "1"
@@ -3700,5 +3700,149 @@ Using this endpoint you can get all Resources.
                 "active_int": 1,
                 "domain": "mailcow.tld",
                 "local_part": "test"
+              }
+            ]
+
+### Create Resources [POST /api/v1/add/resource]
+
+Using this endpoint you can create Resources.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + description (string) - a description of the resource
+        + domain (string) - the domain for which the resource should be
+        + kind (enum) - the kind of recouse
+            + location
+            + group
+            + thing
+        + multiple_bookings_select (enum) - 
+            + -1 - Unlimited, but show as busy when booked
+            + 1 - Always show as free
+            + custom - Hard-limit to a custom amount of bookings
+        + multiple_bookings_custom (number) - always empty
+        + multiple_bookings (enum) -
+            + -1 - Unlimited, but show as busy when booked
+            + 1 - Always show as free
+            + custom - Hard-limit to a custom amount of bookings can be any number
+        + active (number) - 1 for a active transport map 0 for a disabled transport map
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+                "description": "test",
+                "domain": "mailcow.tld",
+                "kind": "location",
+                "multiple_bookings_select": "0",
+                "multiple_bookings_custom": "",
+                "multiple_bookings": "0",
+                "active": "1"
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "mailbox",
+                  "add",
+                  "resource",
+                  {
+                    "description": "test",
+                    "domain": "mailcow.tld",
+                    "kind": "location",
+                    "multiple_bookings_select": "0",
+                    "multiple_bookings_custom": "",
+                    "multiple_bookings": "0",
+                    "active": "1"
+                  },
+                  null
+                ],
+                "msg": [
+                  "resource_added",
+                  "mailcow.tld"
+                ]
+              }
+            ]
+
+### Delete Resources [POST /api/v1/delete/resource]
+
+Using this endpoint you can delete a Resources, for this you have to know its ID. You can get the ID using the GET method.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of Resources you want to delete
+            + description@domain
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+           ["test@mailcow.tld"]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "mailbox",
+                  "delete",
+                  "resource",
+                  {
+                    "name": [
+                      "test@mailcow.tld"
+                    ]
+                  },
+                  null
+                ],
+                "msg": [
+                  "resource_removed",
+                  "test@mailcow.tld"
+                ]
               }
             ]
