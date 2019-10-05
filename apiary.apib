@@ -18,8 +18,7 @@ You can list all domains existing in system.
 
 + Parameters
 
-    + id (string, required) - id of entry you want to get use `all` to get all entries
-        + Default: `all`
+    + id: `all` (string, required) - id of entry you want to get
         + Members
             + `all`
             + `mailcow.tld`
@@ -966,7 +965,7 @@ You can list mailbox aliases existing in system.
 
 + Parameters
 
-    + id (string, required) - id of entry you want to get use `all` to get all entries
+    + id: `all` (string, required) - id of entry you want to get
         + Members
             + `all`
             + `1`
@@ -2381,7 +2380,7 @@ Using this endpoint you can edit the Fail2Ban config and black or whitelist new 
     + Attributes
         
         + items (array) - has to be none
-        + attr (array) - array containing the fail2ban settings
+        + attr (object) - array containing the fail2ban settings
             + ban_time (number) - the time a ip should be banned
             + max_attempts (number) - the maximum numbe of wrong logins before a ip is banned
             + retry_window (number) - the maximum time in which a ip as to login with false credentials to be banned
@@ -2793,8 +2792,7 @@ Using this endpoint you can get all BCC maps.
 
 + Parameters
 
-    + id (string, required) - id of entry you want to get use `all` to get all entries
-        + Default: `all`
+    + id: `all` (string, required) - id of entry you want to get
         + Members
             + `all`
             + `1`
@@ -2953,8 +2951,7 @@ Using this endpoint you can get all recipient maps.
 
 + Parameters
 
-    + id (string, required) - id of entry you want to get use `all` to get all entries
-        + Default: `all`
+    + id: `all` (string, required) - id of entry you want to get
         + Members
             + `all`
             + `1`
@@ -3115,8 +3112,7 @@ Using this endpoint you can get all TLS policy map override maps.
 
 + Parameters
 
-    + id (string, required) - id of entry you want to get use `all` to get all entries
-        + Default: `all`
+    + id: `all` (string, required) - id of entry you want to get
         + Members
             + `all`
             + `1`
@@ -3287,8 +3283,7 @@ Using this endpoint you can get all oAuth clients.
 
 + Parameters
 
-    + id (string, required) - id of entry you want to get use `all` to get all entries
-        + Default: `all`
+    + id: `all` (string, required) - id of entry you want to get
         + Members
             + `all`
             + `1`
@@ -3438,8 +3433,7 @@ Using this endpoint you can get all Sender-Dependent Transports.
 
 + Parameters
 
-    + id (string, required) - id of entry you want to get use `all` to get all entries
-        + Default: `all`
+    + id: `all` (string, required) - id of entry you want to get
         + Members
             + `all`
             + `1`
@@ -3595,8 +3589,7 @@ Using this endpoint you can get all Transport Maps.
 
 + Parameters
 
-    + id (string, required) - id of entry you want to get use `all` to get all entries
-        + Default: `all`
+    + id: `all` (string, required) - id of entry you want to get
         + Members
             + `all`
             + `1`
@@ -3798,12 +3791,12 @@ Using this endpoint you can create Resources.
             + group
             + thing
         + multiple_bookings_select (enum) - 
-            + -1 - Unlimited, but show as busy when booked
+            + `-1` - Unlimited, but show as busy when booked
             + 1 - Always show as free
             + custom - Hard-limit to a custom amount of bookings
         + multiple_bookings_custom (number) - always empty
         + multiple_bookings (enum) -
-            + -1 - Unlimited, but show as busy when booked
+            + `-1` - Unlimited, but show as busy when booked
             + 1 - Always show as free
             + custom - Hard-limit to a custom amount of bookings can be any number
         + active (number) - 1 for a active transport map 0 for a disabled transport map
