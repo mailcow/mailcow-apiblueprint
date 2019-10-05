@@ -2372,6 +2372,86 @@ Gets the current Fail2Ban configuration.
               ]
             }
 
+## Edit Fail2Ban [POST /api/v1/edit/fail2ban]
+
+Using this endpoint you can edit the Fail2Ban config and black or whitelist new ips.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - has to be none
+        + attr (array) - array containing the fail2ban settings
+            + ban_time (number) - the time a ip should be banned
+            + max_attempts (number) - the maximum numbe of wrong logins before a ip is banned
+            + retry_window (number) - the maximum time in which a ip as to login with false credentials to be banned
+            + netban_ipv4 (number) - the networks mask to ban for ipv4
+            + netban_ipv6 (number) - the networks mask to ban for ipv6
+            + whitelist (string) - whitelisted ips or hostnames sepereated by comma
+            + backlist (string) - the backlisted ips or hostnames separated by comma
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {  
+              "items":[
+                  "none"
+               ],
+              "attr": {
+                "ban_time": "86400",
+                "max_attempts": "5",
+                "retry_window": "600",
+                "netban_ipv4": "24",
+                "netban_ipv6": "64",
+                "whitelist": "mailcow.tld",
+                "blacklist": "10.100.6.5/32,10.100.8.4/32"
+                }
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+                "type": "success",
+                "log": [
+                  "fail2ban",
+                  "edit",
+                  {
+                    "network": [
+                      "none"
+                    ],
+                    "ban_time": "86400",
+                    "max_attempts": "5",
+                    "retry_window": "600",
+                    "netban_ipv4": "24",
+                    "netban_ipv6": "64",
+                    "whitelist": "mailcow.tld",
+                    "blacklist": "10.100.6.5/32,10.100.8.4/32"
+                  }
+                ],
+                "msg": "f2b_modified"
+              }
+            ]
+
 ## Group DKIM
 
 ### Generate DKIM Key [POST /api/v1/add/dkim]
