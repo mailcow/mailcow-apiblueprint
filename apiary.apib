@@ -2341,6 +2341,78 @@ Get all mails that are currently in Quarantine.
     
             X-API-Key: api-key-string
 
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "id": 33,
+              "qid": "8224615004C1",
+              "subject": "mailcow is awesome",
+              "virus_flag": 0,
+              "score": 15.48,
+              "rcpt": "admin@domain.tld",
+              "sender": "bounces@send.domain.tld",
+              "created": 1572688831
+            }
+
+### Delete mails in Quarantine [POST /api/v1/delete/qitem]
+
+Using this endpoint you can delete a email from quarantine, for this you have to know its ID. You can get the ID using the GET method.
+
++ Request (application/json)
+
+    + Attributes
+        
+        + items (array) - contains list of emails you want to delete
+            + id
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["33"]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "quarantine",
+                  "delete",
+                  {
+                    "id": [
+                      "33"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "item_deleted",
+                  "33"
+                ]
+              }
+            ]
+
 ## Group Fail2Ban
 
 ### Get Fail2Ban Config [GET /api/v1/get/fail2ban]
@@ -2371,7 +2443,7 @@ Gets the current Fail2Ban configuration.
               ]
             }
 
-## Edit Fail2Ban [POST /api/v1/edit/fail2ban]
+### Edit Fail2Ban [POST /api/v1/edit/fail2ban]
 
 Using this endpoint you can edit the Fail2Ban config and black or whitelist new ips.
 
