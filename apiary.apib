@@ -617,9 +617,16 @@ You can delete one o more domain policies.
 
 ## Group Mailboxes
 
-### List all mailboxes [GET /api/v1/get/mailbox/all]
+### Get mailboxes [GET /api/v1/get/mailbox/{id}]
 
 You can list all mailboxes existing in system.
+
++ Parameters
+
+    + id: `all` (string, required) - id of entry you want to get
+        + Members
+            + `all`
+            + `user@domain.tld`
 
 + Request (application/json)
 
