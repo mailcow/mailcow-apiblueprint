@@ -8,3 +8,5 @@ html:
         url: /
       advanced:
         url: /
+  sidebar:
+    groupOrder: "auto"
