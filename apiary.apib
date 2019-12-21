@@ -3999,3 +3999,160 @@ Using this endpoint you can delete a Resources, for this you have to know its ID
                 ]
               }
             ]
+
+## Group App Passwords
+
+### Get App Password [GET /api/v1/get/app-passwd/all/{mailbox}]
+
+Using this endpoint you can get all app passwords from a specific mailbox.
+
++ Parameters
+
+    + mailbox: `hello@mailcow.email` (string, required) - mailbox of entry you want to get
+        + Members
+            + `hello@mailcow.email`
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "id": 2,
+                "name": "emclient",
+                "mailbox": "hello@mailcow.email",
+                "domain": "mailcow.email",
+                "created": "2019-12-21 16:04:55",
+                "modified": null,
+                "active_int": 1,
+                "active": "&#10003;"
+              }
+            ]
+
+### Create App Password [POST /api/v1/add/app-passwd]
+
+Using this endpoint you can create a new app password for a specific mailbox.
+
++ Request (application/json)
+
+    + Attributes
+
+        + username (string) - the username user@domain.tld
+        + app_name (string) - name of the app password
+        + app_passwd (string) - the password
+        + app_passwd2 (string) - the password for confirmation
+        + active (number) - 1 for a active transport map 0 for a disabled transport map
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+              "username": "hello@mailcow.email"
+              "app_name": "emclient",
+              "app_passwd": "keyleudecticidechothistishownsan31",
+              "app_passwd2": "keyleudecticidechothistishownsan31",
+              "active": "1"
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "app_passwd",
+                  "add",
+                  {
+                    "username": "hello@mailcow.email",
+                    "app_name": "emclient",
+                    "app_passwd": "keyleudecticidechothistishownsan31",
+                    "app_passwd2": "keyleudecticidechothistishownsan31",
+                    "active": "1"
+                  }
+                ],
+                "msg": "app_passwd_added"
+              }
+            ]
+
+### Delete App Password [POST /api/v1/delete/app-passwd]
+
+Using this endpoint you can delete a single app password.
+
++ Request (application/json)
+
+    + Attributes
+
+        + items (array) - contains list of app passwords you want to delete
+            + id
+
+    + Headers
+
+            X-API-Key: api-key-string
+
+    + Body
+
+            ["1"]
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "app_passwd",
+                  "delete",
+                  {
+                    "id": [
+                      "2"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "app_passwd_removed",
+                  "2"
+                ]
+              }
+            ]
