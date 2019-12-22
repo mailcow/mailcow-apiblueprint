@@ -23,7 +23,7 @@ You can list all domains existing in system.
             + `all`
             + `mailcow.tld`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -92,7 +92,7 @@ You can list all domains existing in system.
 
 You may create your own domain using this action. It takes a JSON object containing a domain informations.
 
-+ Request (application/json)
++ Request json (application/json)
 
     You can also define rate limiting. If `rl_value` is not empty string, them ratelimit object is created and returned in response.
 
@@ -222,7 +222,7 @@ You may create your own domain using this action. It takes a JSON object contain
 You can update one or more domains per request. You can also send just attributes you want to change.  
 Example: You can add domain names to items list and in attr object just include `"active": "0"` to deactivate domains.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -338,7 +338,7 @@ Example: You can add domain names to items list and in attr object just include 
 
 You can delete one or more domains.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -428,7 +428,7 @@ You can list all whitelist policies per domain.
     
     + domain (string) - name of domain
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -452,7 +452,7 @@ You can list all blacklist policies per domain.
     
     + domain (string) - name of domain
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -472,7 +472,7 @@ You can list all blacklist policies per domain.
 
 You may create your own domain policy using this action. It takes a JSON object containing a domain informations. 
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
             
@@ -537,7 +537,7 @@ You may create your own domain policy using this action. It takes a JSON object 
 
 You can delete one o more domain policies.
 
-+ Request (application/json)
++ Request json (application/json)
 
     Delete domain policy by ID
 
@@ -628,7 +628,7 @@ You can list all mailboxes existing in system.
             + `all`
             + `user@domain.tld`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -670,7 +670,7 @@ You can list all mailboxes existing in system.
 
 You may create your own mailbox using this action. It takes a JSON object containing a domain informations.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -746,7 +746,7 @@ You may create your own mailbox using this action. It takes a JSON object contai
 
 You can update one or more mailboxes per request. You can also send just attributes you want to change
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -851,7 +851,7 @@ You can update one or more mailboxes per request. You can also send just attribu
 
 You can delete one or more mailboxes.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -933,7 +933,7 @@ You can delete one or more mailboxes.
 
 You can update one or more mailboxes per request.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -980,7 +980,7 @@ You can list mailbox aliases existing in system.
             + `5`
             + `10`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -1026,10 +1026,10 @@ You can list mailbox aliases existing in system.
 You may create your own mailbox alias using this action. It takes a JSON object containing a domain informations.  
 Only one `goto*` option can be used, for ex. if you want learn as spam, then send just `goto_spam = 1` in request body.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
-        
+
         + address (string) - alias address, for catchall use "@domain.tld"
         + goto (string) - destination address, comma separated
         - goto_null (boolean) - silently ignore
@@ -1038,11 +1038,11 @@ Only one `goto*` option can be used, for ex. if you want learn as spam, then sen
         + active (boolean) - is alias active or not
 
     + Headers
-    
+
             X-API-Key: api-key-string
 
     + Body
-    
+
             {
                "address":"alias@domain.tld",
                "goto":"destination@domain.tld",
@@ -1093,7 +1093,7 @@ Only one `goto*` option can be used, for ex. if you want learn as spam, then sen
 
 You can update one or more aliases per request. You can also send just attributes you want to change
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -1177,7 +1177,7 @@ You can update one or more aliases per request. You can also send just attribute
 
 You can delete one or more aliases.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -1256,7 +1256,7 @@ You can delete one or more aliases.
 
 You can list all syn jobs existing in system.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -1306,7 +1306,7 @@ You can list all syn jobs existing in system.
 
 You can create new sync job using this action. It takes a JSON object containing a domain informations.  
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -1429,7 +1429,7 @@ You can create new sync job using this action. It takes a JSON object containing
 
 You can update one or more sync jobs per request. You can also send just attributes you want to change.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -1515,7 +1515,7 @@ You can update one or more sync jobs per request. You can also send just attribu
 
 You can delete one or more sync jobs.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -1556,7 +1556,7 @@ You can delete one or more sync jobs.
 
 You can list all Forwarding Hosts in your system.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -1584,7 +1584,7 @@ You can list all Forwarding Hosts in your system.
 
 Add a new Forwarding host to mailcow. You can chose to enable or disable spam filtering of incoming emails by specifing `filter_spam` 0 = inactive, 1 = active.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -1651,7 +1651,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -1679,7 +1679,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2009,7 +2009,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2038,7 +2038,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2064,7 +2064,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2092,7 +2092,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2130,7 +2130,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2159,7 +2159,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2195,7 +2195,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2228,7 +2228,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
     + count (number, optional) - Number of logs to return
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2253,7 +2253,7 @@ Tip: You can limit how many logs you want to get by using `/<count>` at the end 
 
 Get the current mail queue and everything it contains.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2281,7 +2281,7 @@ Get the current mail queue and everything it contains.
 Using this API you can flush the current mail queue. This will try to deliver all mails currently in it.
 This API uses the command: `postqueue -f`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -2311,7 +2311,7 @@ This API uses the command: `postqueue -f`
 Using this API you can delete the current mail queue. This will delete all mails in it.
 This API uses the command: `postsuper -d`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -2342,7 +2342,7 @@ This API uses the command: `postsuper -d`
 
 Get all mails that are currently in Quarantine.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2368,7 +2368,7 @@ Get all mails that are currently in Quarantine.
 
 Using this endpoint you can delete a email from quarantine, for this you have to know its ID. You can get the ID using the GET method.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -2427,7 +2427,7 @@ Using this endpoint you can delete a email from quarantine, for this you have to
 
 Gets the current Fail2Ban configuration.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2455,7 +2455,7 @@ Gets the current Fail2Ban configuration.
 
 Using this endpoint you can edit the Fail2Ban config and black or whitelist new ips.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -2537,7 +2537,7 @@ Using this endpoint you can edit the Fail2Ban config and black or whitelist new 
 
 Using this endpoint you can generate new DKIM keys.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -2599,7 +2599,7 @@ Using this endpoint you can generate new DKIM keys.
 
 Using this endpoint you can duplicate the DKIM Key of one domain.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -2659,7 +2659,7 @@ Using this endpoint you can duplicate the DKIM Key of one domain.
 
 Using this endpoint a existing DKIM Key can be deleted
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2711,7 +2711,7 @@ Using this endpoint a existing DKIM Key can be deleted
 
 ### Get Domain Admins [GET /api/v1/get/domain-admin/all]
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2743,7 +2743,7 @@ Using this endpoint a existing DKIM Key can be deleted
 
 Using this endpoint you can create a new Domain Admin user. This user has full control over a domain, and can create new mailboxes and aliases.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -2811,7 +2811,7 @@ Using this endpoint you can create a new Domain Admin user. This user has full c
 
 Using this endpoint a existing Domain Admin user can be deleted.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -2880,7 +2880,7 @@ Using this endpoint you can get all BCC maps.
             + `5`
             + `10`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -2908,7 +2908,7 @@ Using this endpoint you can get all BCC maps.
 
 Using this endpoint you can create a BCC map to forward all mails via a bcc for a given domain.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -2971,7 +2971,7 @@ Using this endpoint you can create a BCC map to forward all mails via a bcc for 
 
 Using this endpoint you can delete a BCC map, for this you have to know its ID. You can get the ID using the GET method.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3039,7 +3039,7 @@ Using this endpoint you can get all recipient maps.
             + `5`
             + `10`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -3065,7 +3065,7 @@ Using this endpoint you can get all recipient maps.
 
 Using this endpoint you can create a recipient map to forward all mails from one email address to another.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3128,7 +3128,7 @@ Using this endpoint you can create a recipient map to forward all mails from one
 
 Using this endpoint you can delete a recipient map, for this you have to know its ID. You can get the ID using the GET method.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3200,7 +3200,7 @@ Using this endpoint you can get all TLS policy map override maps.
             + `5`
             + `10`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -3227,7 +3227,7 @@ Using this endpoint you can get all TLS policy map override maps.
 
 Using this endpoint you can create a TLS policy map override.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3301,7 +3301,7 @@ Using this endpoint you can create a TLS policy map override.
 
 Using this endpoint you can delete a TLS Policy Map, for this you have to know its ID. You can get the ID using the GET method.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3371,7 +3371,7 @@ Using this endpoint you can get all oAuth clients.
             + `5`
             + `10`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -3397,7 +3397,7 @@ Using this endpoint you can get all oAuth clients.
 
 Using this endpoint you can create a oAuth clients.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3451,7 +3451,7 @@ Using this endpoint you can create a oAuth clients.
 
 Using this endpoint you can delete a oAuth client, for this you have to know its ID. You can get the ID using the GET method.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3521,7 +3521,7 @@ Using this endpoint you can get all Sender-Dependent Transports.
             + `5`
             + `10`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -3548,7 +3548,7 @@ Using this endpoint you can get all Sender-Dependent Transports.
 
 Using this endpoint you can create Sender-Dependent Transports.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3610,7 +3610,7 @@ Using this endpoint you can create Sender-Dependent Transports.
 
 Using this endpoint you can delete a Sender-Dependent Transport, for this you have to know its ID. You can get the ID using the GET method.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3677,7 +3677,7 @@ Using this endpoint you can get all Transport Maps.
             + `5`
             + `10`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -3706,7 +3706,7 @@ Using this endpoint you can get all Transport Maps.
 
 Using this endpoint you can create Sender-Dependent Transports.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3774,7 +3774,7 @@ Using this endpoint you can create Sender-Dependent Transports.
 
 Using this endpoint you can delete a Transport Maps, for this you have to know its ID. You can get the ID using the GET method.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3833,7 +3833,7 @@ Using this endpoint you can delete a Transport Maps, for this you have to know i
 
 Using this endpoint you can get all Resources.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -3860,7 +3860,7 @@ Using this endpoint you can get all Resources.
 
 Using this endpoint you can create Resources.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -3945,7 +3945,7 @@ Using this endpoint you can create Resources.
 
 Using this endpoint you can delete a Resources, for this you have to know its ID. You can get the ID using the GET method.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
         
@@ -4012,7 +4012,7 @@ Using this endpoint you can get all app passwords from a specific mailbox.
         + Members
             + `hello@mailcow.email`
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Headers
     
@@ -4039,7 +4039,7 @@ Using this endpoint you can get all app passwords from a specific mailbox.
 
 Using this endpoint you can create a new app password for a specific mailbox.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
 
@@ -4104,7 +4104,7 @@ Using this endpoint you can create a new app password for a specific mailbox.
 
 Using this endpoint you can delete a single app password.
 
-+ Request (application/json)
++ Request json (application/json)
 
     + Attributes
 
