@@ -425,7 +425,7 @@ You can create antispam whitelist and blacklist policies
 You can list all whitelist policies per domain.
 
 + Parameters
-    
+
     + domain (string) - name of domain
 
 + Request json (application/json)
@@ -947,11 +947,11 @@ You can update one or more mailboxes per request.
                 + never - never
 
     + Headers
-    
+
             X-API-Key: api-key-string
-            
+
     + Body
-            
+
             {
                "items":[
                   "mailbox1@domain.tld",
@@ -966,7 +966,7 @@ You can update one or more mailboxes per request.
 
 ## Group Aliases
 
-### GET aliases [GET /api/v1/get/alias/{id}]
+### Get aliases [GET /api/v1/get/alias/{id}]
 
 You can list mailbox aliases existing in system.
 
@@ -2493,7 +2493,7 @@ Using this endpoint you can edit the Fail2Ban config and black or whitelist new 
 + Response 200 (application/json)
 
     + Attributes
-    
+
         + type (enum)
             + success
             + danger
@@ -2532,6 +2532,32 @@ Using this endpoint you can edit the Fail2Ban config and black or whitelist new 
             ]
 
 ## Group DKIM
+
+### Get DKIM Key [GET /api/v1/get/dkim/{domain}]
+
+Using this endpoint you can get the DKIM public key for a specific domain.
+
++ Parameters
+
+    + domain (string) - name of domain
+
++ Request json (application/json)
+
+    + Headers
+
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "pubkey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA21tUSjyasQy/hJmVjPnlRGfzx6TPhYj8mXY9DVOzSAE64Gddw/GnE/GcCR6WXNT23u9q4zPnz1IPoNt5kFOps8vg/iNqrcH++494noaZuYyFPPFnebkfryO4EvEyxC/c66qts+gnOUml+M8uv5WObBJld2gG12jLwFM0263J/N6J8LuUsaXOB2uCIfx8Nf4zjuJ6Ieez2uyHNK5dXjDLfKA4mTr+EEK6W6e34M4KN1liWM6r9Oy5S1FlLrD42VpURxxBZtBiEtaJPEKSQuk6GQz8ihu7W20Yr53tyCdaORu8dhxXVUWVf+GjuuMEdAmQCjYkarXdYCrt56Psw703kwIDAQAB",
+              "length": "2048",
+              "dkim_txt": "v=DKIM1;k=rsa;t=s;s=email;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA21tUSjyasQy/hJmVjPnlRGfzx6TPhYj8mXY9DVOzSAE64Gddw/GnE/GcCR6WXNT23u9q4zPnz1IPoNt5kFOps8vg/iNqrcH++494noaZuYyFPPFnebkfryO4EvEyxC/c66qts+gnOUml+M8uv5WObBJld2gG12jLwFM0263J/N6J8LuUsaXOB2uCIfx8Nf4zjuJ6Ieez2uyHNK5dXjDLfKA4mTr+EEK6W6e34M4KN1liWM6r9Oy5S1FlLrD42VpURxxBZtBiEtaJPEKSQuk6GQz8ihu7W20Yr53tyCdaORu8dhxXVUWVf+GjuuMEdAmQCjYkarXdYCrt56Psw703kwIDAQAB",
+              "dkim_selector": "dkim",
+              "privkey": ""
+            }
 
 ### Generate DKIM Key [POST /api/v1/add/dkim]
 
