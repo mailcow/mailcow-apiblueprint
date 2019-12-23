@@ -4182,3 +4182,191 @@ Using this endpoint you can delete a single app password.
                 ]
               }
             ]
+
+## Group status
+
+### Get container status [GET /api/v1/get/status/containers]
+
+Using this endpoint you can get the status of all containers and when hey where started and a few other details.
+
++ Request json (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "ipv6nat-mailcow": {
+                "type": "info",
+                "container": "ipv6nat-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:06:37.273225445Z",
+                "image": "robbertkl/ipv6nat"
+              },
+              "netfilter-mailcow": {
+                "type": "info",
+                "container": "netfilter-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:00:09.851559297Z",
+                "image": "mailcow/netfilter:1.31"
+              },
+              "rspamd-mailcow": {
+                "type": "info",
+                "container": "rspamd-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:00:12.456075355Z",
+                "image": "mailcow/rspamd:1.56"
+              },
+              "acme-mailcow": {
+                "type": "info",
+                "container": "acme-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:00:08.270660275Z",
+                "image": "mailcow/acme:1.63"
+              },
+              "dovecot-mailcow": {
+                "type": "info",
+                "container": "dovecot-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:00:08.988680259Z",
+                "image": "mailcow/dovecot:1.104"
+              },
+              "postfix-mailcow": {
+                "type": "info",
+                "container": "postfix-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:00:07.186717617Z",
+                "image": "mailcow/postfix:1.44"
+              },
+              "nginx-mailcow": {
+                "type": "info",
+                "container": "nginx-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:00:12.9843038Z",
+                "image": "nginx:mainline-alpine"
+              },
+              "mysql-mailcow": {
+                "type": "info",
+                "container": "mysql-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:00:02.201937528Z",
+                "image": "mariadb:10.3"
+              },
+              "php-fpm-mailcow": {
+                "type": "info",
+                "container": "php-fpm-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:00:00.955808957Z",
+                "image": "mailcow/phpfpm:1.55"
+              },
+              "clamd-mailcow": {
+                "type": "info",
+                "container": "clamd-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T21:00:01.622856172Z",
+                "image": "mailcow/clamd:1.35"
+              },
+              "memcached-mailcow": {
+                "type": "info",
+                "container": "memcached-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T20:59:58.0907785Z",
+                "image": "memcached:alpine"
+              },
+              "solr-mailcow": {
+                "type": "info",
+                "container": "solr-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T20:59:59.635413798Z",
+                "image": "mailcow/solr:1.7"
+              },
+              "olefy-mailcow": {
+                "type": "info",
+                "container": "olefy-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T20:59:59.676259274Z",
+                "image": "mailcow/olefy:1.2"
+              },
+              "sogo-mailcow": {
+                "type": "info",
+                "container": "sogo-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T20:59:58.382274592Z",
+                "image": "mailcow/sogo:1.65"
+              },
+              "unbound-mailcow": {
+                "type": "info",
+                "container": "unbound-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T20:59:58.760595825Z",
+                "image": "mailcow/unbound:1.10"
+              },
+              "dockerapi-mailcow": {
+                "type": "info",
+                "container": "dockerapi-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T20:59:59.984797808Z",
+                "image": "mailcow/dockerapi:1.36"
+              },
+              "redis-mailcow": {
+                "type": "info",
+                "container": "redis-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T20:59:56.827166834Z",
+                "image": "redis:5-alpine"
+              },
+              "watchdog-mailcow": {
+                "type": "info",
+                "container": "watchdog-mailcow",
+                "state": "running",
+                "started_at": "2019-12-22T20:59:56.028660382Z",
+                "image": "mailcow/watchdog:1.65"
+              }
+            }
+
+### Get vmail status [GET /api/v1/get/status/vmail]
+
+Using this endpoint you can get the status of the vmail and the amount of used storage.
+
++ Request json (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "type": "info",
+              "disk": "/dev/mapper/mail--vg-root",
+              "used": "11G",
+              "total": "41G",
+              "used_percent": "28%"
+            }
+
+### Get solr status [GET /api/v1/get/status/solr]
+
+Using this endpoint you can get the status of all containers and when hey where started and a few other details.
+
++ Request json (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "type": "info",
+              "solr_enabled": false,
+              "solr_size": null,
+              "solr_documents": null
+            }
