@@ -1,6 +1,11 @@
 #!/bin/bash
 
-ssh-keyscan github.com >> ~/.ssh/known_hosts
+mkdir /root/.ssh/
+ssh-keyscan -H github.com >> /root/.ssh/known_hosts
+echo "${SSH_KEY}" > /root/.ssh/id_rsa
+chmod 0700 /root/.ssh/
+chmod 0600 /root/.ssh/id_rsa
+chmod 0600 /root/.ssh/known_hosts
 git clone git@github.com:mailcow/mailcow-apiblueprint.git
 rm mailcow-apiblueprint/output.html
 cp output.html mailcow-apiblueprint/output.html
