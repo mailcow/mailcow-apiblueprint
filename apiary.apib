@@ -4369,3 +4369,36 @@ Using this endpoint you can get the status of all containers and when hey where 
               "solr_size": null,
               "solr_documents": null
             }
+
+## Group Ratelimits
+
+### Get Ratelimits [GET /api/v1/get/rl-mbox/{mailbox}]
+
+Using this endpoint you can get the ratelimits for a certain mailbox. You can use all for all mailboxes.
+
++ Parameters
+
+    + mailbox (string, requiered) - name of mailbox or all
+
++ Request json (application/json)
+
+    + Headers
+    
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "value": "5",
+                "frame": "s",
+                "mailbox": "leon@mailcow.tld"
+              },
+              {
+                "value": "3",
+                "frame": "s",
+                "mailbox": "lisa@mailcow.tld"
+              }
+            ]
