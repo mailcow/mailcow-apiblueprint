@@ -1,0 +1,54 @@
+---
+
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+
+- name: lint
+  pull: default
+  image: timovibritannia/snowboard
+  commands:
+  - snowboard lint apiary.apib
+  when:
+    branch:
+    - master
+    event:
+    - push
+    - pull_request
+
+- name: build
+  pull: default
+  image: timovibritannia/snowboard
+  commands:
+  - rm output.html
+  - snowboard html -o output.html -c config.yaml apiary.apib
+  when:
+    branch:
+    - master
+    event:
+    - push
+    - pull_request
+
+- name: push
+  pull: default
+  image: timovibritannia/ansible
+  commands:
+  - chmod +x commit.sh
+  - ./commit.sh
+  environment:
+    SSH_KEY:
+      from_secret: SSH_KEY
+    GIT_USER:
+      from_secret: GIT_USER
+    GIT_EMAIL:
+      from_secret: GIT_EMAIL
+  when:
+    branch:
+    - master
+    event:
+    - push
