@@ -1554,7 +1554,7 @@ You can delete one or more sync jobs.
 
 ### Get Forwarding Hosts [GET /api/v1/get/fwdhost/all]
 
-You can list all Forwarding Hosts in your system.
+You can list all Forwarding Hosts in your mailcow.
 
 + Request json (application/json)
 
@@ -1587,7 +1587,7 @@ Add a new Forwarding host to mailcow. You can chose to enable or disable spam fi
 + Request json (application/json)
 
     + Headers
-    
+
             X-API-Key: api-key-string
 
     + Attributes
@@ -1639,6 +1639,79 @@ Add a new Forwarding host to mailcow. You can chose to enable or disable spam fi
               }
             ]
 
+### Delete Forward Host [POST /api/v1/delete/fwdhost]
+
+Using this endpoint you can delete a forwarding host, in order to do so you need to know the IP of the host.
+
++ Request json (application/json)
+
+    + Headers
+
+            X-API-Key: api-key-string
+
+    + Attributes
+
+        + ip (string) - contains the ip of the fowarding host you want to delete
+
+    + Body
+
+            ["5.1.76.202","2a00:f820:417::202"]
+
++ Response 200 (application/json)
+
+    + Attributes
+
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "fwdhost",
+                  "delete",
+                  {
+                    "forwardinghost": [
+                      "5.1.76.202",
+                      "2a00:f820:417::202"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "forwarding_host_removed",
+                  "5.1.76.202"
+                ]
+              },
+              {
+                "type": "success",
+                "log": [
+                  "fwdhost",
+                  "delete",
+                  {
+                    "forwardinghost": [
+                      "5.1.76.202",
+                      "2a00:f820:417::202"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "forwarding_host_removed",
+                  "2a00:f820:417::202"
+                ]
+              }
+            ]
 
 ## Group Logs
 
