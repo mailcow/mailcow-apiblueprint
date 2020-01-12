@@ -52,3 +52,8 @@ steps:
     - master
     event:
     - push
+---
+kind: signature
+hmac: e269b455997395a195d033887fa9cb94a3953c272f43e687e52e5867c174b944
+
+...
