@@ -13,5 +13,5 @@ git config --global user.name ${GIT_USER}
 git config --global user.email ${GIT_EMAIL}
 cd mailcow-apiblueprint
 git add .
-git commit -m "Automated generation of output.html for commit ${DRONE_COMMIT:0:10}"
+git commit -m "[CI SKIP] Automated generation of output.html for commit ${DRONE_COMMIT:0:10}"
 git push
