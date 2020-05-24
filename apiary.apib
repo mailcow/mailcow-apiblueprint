@@ -850,6 +850,83 @@ You can update one or more mailboxes per request. You can also send just attribu
                }
             ]
 
+### Update mailbox ACL [POST /api/v1/edit/user-acl]
+
+Using this endpoints its possible to update the ACL's for one specific mailbox
+
++ Request json (application/json)
+
+    + Attributes
+
+        + items (array) - contains list of mailboxes you want to delete
+            + local_part@domain
+
+    + Headers
+
+            X-API-Key: api-key-string
+
+    + Body
+
+          {
+            "items": ["info@domain.tld"],
+            "attr": {
+              "user_acl": ["spam_alias","tls_policy","spam_score","spam_policy","delimiter_action","syncjobs","eas_reset","quarantine","sogo_profile_reset","quarantine_attachments","quarantine_notification","app_passwds","pushover"]
+            }
+          }
+
++ Response 200 (application/json)
+
+    + Attributes
+
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "acl",
+                  "edit",
+                  "user",
+                  {
+                    "username": [
+                      "info@domain.tld"
+                    ],
+                    "user_acl": [
+                      "spam_alias",
+                      "tls_policy",
+                      "spam_score",
+                      "spam_policy",
+                      "delimiter_action",
+                      "syncjobs",
+                      "eas_reset",
+                      "quarantine",
+                      "sogo_profile_reset",
+                      "quarantine_attachments",
+                      "quarantine_notification",
+                      "app_passwds",
+                      "pushover"
+                    ]
+                  }
+                ],
+                "msg": [
+                  "acl_saved",
+                  "info@domain.tld"
+                ]
+              }
+            ]
 
 ### Delete mailbox [POST /api/v1/delete/mailbox]
 
