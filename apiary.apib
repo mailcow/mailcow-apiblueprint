@@ -852,7 +852,7 @@ You can update one or more mailboxes per request. You can also send just attribu
 
 ### Update mailbox ACL [POST /api/v1/edit/user-acl]
 
-Using this endpoints its possible to update the ACL's for one specific mailbox
+Using this endpoints its possible to update the ACL's for mailboxes
 
 + Request json (application/json)
 
@@ -860,6 +860,21 @@ Using this endpoints its possible to update the ACL's for one specific mailbox
 
         + items (array) - contains list of mailboxes you want to delete
             + local_part@domain
+        + attr (object)
+            + user_acl (array) - contains a list of active user acls
+              + spam_alias
+              + tls_policy
+              + spam_score
+              + spam_policy
+              + delimiter_action
+              + syncjobs
+              + eas_reset
+              + quarantine
+              + sogo_profile_reset
+              + quarantine_attachments
+              + quarantine_notification
+              + app_passwds
+              + pushover
 
     + Headers
 
@@ -927,6 +942,94 @@ Using this endpoints its possible to update the ACL's for one specific mailbox
                 ]
               }
             ]
+
+## Update Pushover settings [POST /api/v1/edit/pushover]
+
+Using this endpoint it is possible to update the pushover settings for mailboxes
+
++ Request json (application/json)
+
+    + Attributes
+
+        + items (array) - contains list of mailboxes you want to delete
+            + local_part@domain
+        + attr (object)
+            + evaluate_x_prio (number) - Send the Push with High priority
+            + only_x_prio (number) - Only send push for prio mails
+            + active (number) - Enables pushover 1 disable pushover 0
+            + token (string) - Pushover token
+            + key (string) - Pushover key
+            + title (string) - Push title
+            + text (string) - Custom push noficiation text
+            + senders (string) - Only send push for emails from these senders
+            + senders_regex (string) - Regex to match senders for which a push will be send
+
+    + Headers
+
+            X-API-Key: api-key-string
+
+    + Body
+
+            {
+              "items": ["info@domain.tld"],
+              "attr":
+              {
+                "evaluate_x_prio": "0",
+                "only_x_prio": "0",
+                "active": "0",
+                "token":"9023e2ohcwed27d1idu2",
+                "key":"21e8918e1jksdjcpis712",
+                "title":"Mail",
+                "text":"",
+                "senders":"",
+                "senders_regex":""
+              }
+            }
+
++ Response 200 (application/json)
+
+    + Attributes
+
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "pushover",
+                  "edit",
+                  {
+                    "username": [
+                      "info@domain.tld"
+                    ],
+                    "evaluate_x_prio": "0",
+                    "only_x_prio": "0",
+                    "active": "0",
+                    "token": "9023e2ohcwed27d1idu2",
+                    "key": "21e8918e1jksdjcpis712",
+                    "title": "Mail",
+                    "text": "",
+                    "senders": "",
+                    "senders_regex": ""
+                  }
+                ],
+                "msg": "pushover_settings_edited"
+              }
+            ]
+
 
 ### Delete mailbox [POST /api/v1/delete/mailbox]
 
