@@ -850,6 +850,74 @@ You can update one or more mailboxes per request. You can also send just attribu
                }
             ]
 
+### Update mailbox spam score [POST /api/v1/edit/spam-score]
+
+Using this endpoint you can set the spam score for certain mailboxes
+
++ Request json (application/json)
+
+    + Attributes
+
+        + items (array) - contains list of mailboxes you want update
+            + mailbox_name
+        + attr (object)
+            + spam_score (string) - The score to apply
+
+    + Headers
+
+            X-API-Key: api-key-string
+
+    + Body
+
+            [
+              {
+                "items": ["info@domain.tld"],
+                "attr": {
+                  "spam_score": "8,15"
+                }
+              }
+            ]
+
++ Response 200 (application/json)
+
+    + Attributes
+
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success",
+                "log": [
+                  "mailbox",
+                  "edit",
+                  "spam_score",
+                  {
+                    "username": [
+                      "info@domain.tld"
+                    ],
+                    "spam_score": "8,15"
+                  }
+                ],
+                "msg": [
+                  "mailbox_modified",
+                  "info@domain.tld"
+                ]
+              }
+            ]
+
 ### Update mailbox ACL [POST /api/v1/edit/user-acl]
 
 Using this endpoints its possible to update the ACL's for mailboxes
@@ -4629,7 +4697,7 @@ Using this endpoint you can get the status of all containers and when hey where 
 
 ## Group Ratelimits
 
-### Get Ratelimits [GET /api/v1/get/rl-mbox/{mailbox}]
+### Get Mailbox Ratelimits [GET /api/v1/get/rl-mbox/{mailbox}]
 
 Using this endpoint you can get the ratelimits for a certain mailbox. You can use all for all mailboxes.
 
@@ -4657,5 +4725,192 @@ Using this endpoint you can get the ratelimits for a certain mailbox. You can us
                 "value": "3",
                 "frame": "s",
                 "mailbox": "lisa@mailcow.tld"
+              }
+            ]
+
+### Get Domain Ratelimits [GET /api/v1/get/rl-domain/{domain}]
+
+Using this endpoint you can get the ratelimits for a certain mailbox. You can use all for all mailboxes.
+
++ Parameters
+
+    + mailbox (string, required) - name of mailbox or all
+
++ Request json (application/json)
+
+    + Headers
+
+            X-API-Key: api-key-string
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "frame": "s",
+                "domain": "domain.tld",
+                "value": "5"
+              },
+              {
+                "frame": "s",
+                "mailbox": "domain2.tld",
+                "value": "3"
+              }
+            ]
+
+### Edit Domain Ratelimits [GET /api/v1/edit/rl-domain/{domain}]
+
+Using this endpoint you can edit the ratelimit of one or multiple domains
+
++ Request json (application/json)
+
+    + Attributes
+
+        + items (array) - contains list of domains you want to edit
+            + domain.tld
+        + attr (object)
+            + rl_vlaue (number) - the value of the ratelimit
+            + rl_frame (string) - the timeframe of the ratelimit
+
+    + Headers
+
+            X-API-Key: api-key-string
+
+    + Body
+
+            [
+              {
+                "attr": [
+                  {
+                    "rl_vlaue": "10",
+                    "rl_frame": "h"
+                  }
+                ],
+                "items": "domain.tld"
+              }
+            ]
+
++ Response 200 (application/json)
+
+    + Attributes
+
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success"
+              },
+              {
+                "log": [
+                  "ratelimit",
+                  "edit",
+                  "domain",
+                  {
+                    "object": [
+                      "domain.tld",
+                      {
+                        "rl_value": "50",
+                        "rl_frame": "h"
+                      }
+                    ]
+                  }
+                ],
+                "msg": [
+                  "rl_saved",
+                  "domain.tld"
+                ],
+                "type": "success"
+              }
+            ]
+
+### Edit Mailbox Ratelimits [GET /api/v1/edit/rl-mbox/{domain}]
+
+Using this endpoint you can edit the ratelimit of one or multiple mailboxes
+
++ Request json (application/json)
+
+    + Attributes
+
+        + items (array) - contains list of mailboxes you want to edit
+            + info@domain.tld
+        + attr (object)
+            + rl_vlaue (number) - the value of the ratelimit
+            + rl_frame (string) - the timeframe of the ratelimit
+
+    + Headers
+
+            X-API-Key: api-key-string
+
+    + Body
+
+            [
+              {
+                "attr": [
+                  {
+                    "rl_vlaue": "10",
+                    "rl_frame": "h"
+                  }
+                ],
+                "items": "info@domain.tld"
+              }
+            ]
+
++ Response 200 (application/json)
+
+    + Attributes
+
+        + type (enum)
+            + success
+            + danger
+            + error
+        + log (array) - contains request object
+            + entity
+            + action
+            + object
+            + (object)
+        + msg (array)
+            + message
+            + entity name
+
+    + Body
+
+            [
+              {
+                "type": "success"
+              },
+              {
+                "log": [
+                  "ratelimit",
+                  "edit",
+                  "mailbox",
+                  {
+                    "object": [
+                      "info@domain.tld",
+                      {
+                        "rl_value": "50",
+                        "rl_frame": "h"
+                      }
+                    ]
+                  }
+                ],
+                "msg": [
+                  "rl_saved",
+                  "info@domain.tld"
+                ],
+                "type": "success"
               }
             ]
