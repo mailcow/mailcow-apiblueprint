@@ -685,6 +685,9 @@ You may create your own mailbox using this action. It takes a JSON object contai
         + pasword (string) - mailbox password
         + password2 (string) - mailbox password for confirmation
         + active (boolean) - is mailbox active or not
+        + force_pw_update (boolean) - forces the user to update its password on first login
+        + tls_enforce_in (boolean) - force inbound email tls encryption
+        + tls_enforce_out (boolean) - force oubound tmail tls encryption
 
     + Headers
 
@@ -693,13 +696,17 @@ You may create your own mailbox using this action. It takes a JSON object contai
     + Body
 
             {
-               "local_part":"info",
-               "domain":"domain.tld",
-               "name":"Full name",
-               "quota":"3072",
-               "password":"atedismonsin",
-               "password2":"atedismonsin",
-               "active":"1"
+               "local_part": "info",
+               "domain": "domain.tld",
+               "name": "Full name",
+               "quota": "3072",
+               "password": "atedismonsin",
+               "password2": "atedismonsin",
+               "active": "1"
+               "force_pw_update": "1"
+               "tls_enforce_in": "1"
+               "tls_enforce_out": "1"
+
             }
 
 + Response 200 (application/json)
@@ -729,13 +736,16 @@ You may create your own mailbox using this action. It takes a JSON object contai
                      "add",
                      "mailbox",
                      {
-                        "local_part":"info",
-                        "domain":"domain.tld",
-                        "name":"Full name",
-                        "quota":"3072",
-                        "password":"*",
-                        "password2":"*",
-                        "active":"1"
+                        "local_part": "info",
+                        "domain": "domain.tld",
+                        "name": "Full name",
+                        "quota": "3072",
+                        "password": "*",
+                        "password2": "*",
+                        "active": "1"
+                        "force_pw_update": "1"
+                        "tls_enforce_in": "1"
+                        "tls_enforce_out": "1"
                      },
                      null
                   ],
