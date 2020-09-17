@@ -48,16 +48,12 @@ You can list all domains existing in system.
                 "max_quota_for_mbox": 10737418240,
                 "max_quota_for_domain": 10737418240,
                 "relayhost": "0",
-                "backupmx": "&#10008;",
-                "gal": "&#10008;",
-                "backupmx_int": 0,
-                "gal_int": 0,
+                "backupmx": "0",
+                "gal": "0",
                 "lang": "en",
                 "rl": false,
-                "active": "&#10004;",
-                "active_int": 1,
-                "relay_all_recipients": "&#10008;",
-                "relay_all_recipients_int": 0,
+                "active": "1",
+                "relay_all_recipients": "0",
                 "aliases_in_domain": 0,
                 "aliases_left": 400
             },
@@ -77,16 +73,12 @@ You can list all domains existing in system.
                 "max_quota_for_mbox": 10737418240,
                 "max_quota_for_domain": 10737418240,
                 "relayhost": "0",
-                "backupmx": "&#10004;",
-                "gal": "&#10008;",
-                "backupmx_int": 1,
-                "gal_int": 0,
+                "backupmx": "1",
+                "gal": "0",
                 "lang": "cs",
                 "rl": false,
-                "active": "&#10004;",
-                "active_int": 1,
-                "relay_all_recipients": "&#10008;",
-                "relay_all_recipients_int": 0,
+                "active": "1",
+                "relay_all_recipients": "0",
                 "aliases_in_domain": 0,
                 "aliases_left": 400
             }
@@ -649,8 +641,7 @@ You can list all mailboxes existing in system.
                   "rl":false,
                   "is_relayed":0,
                   "name":"Full name",
-                  "active":"&#10004;",
-                  "active_int":1,
+                  "active":"1",
                   "domain":"doman3.tld",
                   "local_part":"info",
                   "quota":3221225472,
@@ -1262,8 +1253,7 @@ You can list mailbox aliases existing in system.
                     "goto": "destination@domain.tld",
                     "address": "alias@domain.tld",
                     "is_catch_all": 0,
-                    "active": "&#10004;",
-                    "active_int": 1,
+                    "active": "1",
                     "created": "2019-04-04 19:29:49",
                     "modified": null
                 },
@@ -1276,8 +1266,7 @@ You can list mailbox aliases existing in system.
                     "goto": "destination@domain.tld",
                     "address": "@domain.tld",
                     "is_catch_all": 1,
-                    "active": "&#10004;",
-                    "active_int": 1,
+                    "active": "1",
                     "created": "2019-04-27 13:42:39",
                     "modified": null
                 }
@@ -1559,7 +1548,6 @@ You can list all syn jobs existing in system.
                     "created": "2019-05-22 11:37:25",
                     "modified": "2019-05-22 11:40:02",
                     "active": "&#10003;",
-                    "active_int": 1,
                     "log": ""
                 }
             ]
@@ -3087,8 +3075,6 @@ Using this endpoint a existing DKIM Key can be deleted
                 "username": "testadmin",
                 "tfa_active": "&#10005;",
                 "active": "&#10003;",
-                "tfa_active_int": null,
-                "active_int": 1,
                 "created": "2019-10-02 10:29:41",
                 "selected_domains": [
                   "mailcow.tld"
@@ -3256,7 +3242,6 @@ Using this endpoint you can get all BCC maps.
                 "id": 3,
                 "local_dest": "@mailcow.tld",
                 "bcc_dest": "bcc@awesomecow.tld",
-                "active_int": 1,
                 "active": "&#10003;",
                 "type": "sender",
                 "created": "2019-10-02 21:44:34",
@@ -3415,7 +3400,6 @@ Using this endpoint you can get all recipient maps.
                 "id": 3,
                 "recipient_map_old": "recipient@mailcow.tld",
                 "recipient_map_new": "target@mailcow.tld",
-                "active_int": 1,
                 "active": "&#10003;",
                 "created": "2019-10-02 22:06:29",
                 "modified": null
@@ -3577,7 +3561,6 @@ Using this endpoint you can get all TLS policy map override maps.
                 "dest": "mailcow.tld",
                 "policy": "encrypt",
                 "parameters": "",
-                "active_int": 1,
                 "active": "&#10003;",
                 "created": "2019-10-03 08:42:12",
                 "modified": null
@@ -3897,7 +3880,6 @@ Using this endpoint you can get all Sender-Dependent Transports.
                 "hostname": "mailcow.tld:25",
                 "username": "testuser",
                 "password": "supersecurepassword",
-                "active_int": 1,
                 "password_short": "tes...",
                 "active": "&#10003;",
                 "used_by_domains": ""
@@ -4054,8 +4036,6 @@ Using this endpoint you can get all Transport Maps.
                 "nexthop": "host:25",
                 "username": "testuser",
                 "password": "supersecurepw",
-                "active_int": 1,
-                "lookup_mx_int": 0,
                 "password_short": "sup...",
                 "active": "&#10003;",
                 "lookup_mx": "&#10005;"
@@ -4210,7 +4190,6 @@ Using this endpoint you can get all Resources.
                 "multiple_bookings": 0,
                 "description": "test",
                 "active": "&#10003;",
-                "active_int": 1,
                 "domain": "mailcow.tld",
                 "local_part": "test"
               }
@@ -4390,7 +4369,6 @@ Using this endpoint you can get all app passwords from a specific mailbox.
                 "domain": "mailcow.email",
                 "created": "2019-12-21 16:04:55",
                 "modified": null,
-                "active_int": 1,
                 "active": "&#10003;"
               }
             ]
