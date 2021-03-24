@@ -50,7 +50,6 @@ You can list all domains existing in system.
                 "relayhost": "0",
                 "backupmx": "0",
                 "gal": "0",
-                "lang": "en",
                 "rl": false,
                 "active": "1",
                 "relay_all_recipients": "0",
@@ -75,7 +74,6 @@ You can list all domains existing in system.
                 "relayhost": "0",
                 "backupmx": "1",
                 "gal": "0",
-                "lang": "cs",
                 "rl": false,
                 "active": "1",
                 "relay_all_recipients": "0",
@@ -110,20 +108,7 @@ You may create your own domain using this action. It takes a JSON object contain
             + d - per day
         + backupmx (boolean) - relay domain or not
         + relay_all_recipients (boolean) - if not, them you have to create "dummy" mailbox for each address to relay
-        + lang (enum) - language code
-            + sk
-            + cs
-            + de
-            + en
-            + es
-            + fr
-            + lv
-            + nl
-            + pl
-            + pt
-            + ru
-            + it
-            + ca
+        + restart_sogo - restart SOGo after adding domain
 
     + Headers
 
@@ -144,7 +129,7 @@ You may create your own domain using this action. It takes a JSON object contain
                "rl_frame":"s",
                "backupmx":"0",
                "relay_all_recipients":"0",
-               "lang":"cs"
+               "restart_sogo":"1"
             }
 
 + Response 200 (application/json)
@@ -203,7 +188,7 @@ You may create your own domain using this action. It takes a JSON object contain
                             "rl_frame": "s",
                             "backupmx": "0",
                             "relay_all_recipients": "0",
-                            "lang":"cs"
+                            "restart_sogo":"1"
                         },
                         null
                     ],
@@ -237,20 +222,6 @@ Example: You can add domain names to items list and in attr object just include 
             + relayhost (number) - id of relayhost
             + backupmx (boolean) - relay domain or not
             + relay_all_recipients (boolean) - if not, them you have to create "dummy" mailbox for each address to relay
-            + lang (enum) - language code
-                + sk
-                + cs
-                + de
-                + en
-                + es
-                + fr
-                + lv
-                + nl
-                + pl
-                + pt
-                + ru
-                + it
-                + ca
 
     + Headers
 
@@ -273,8 +244,7 @@ Example: You can add domain names to items list and in attr object just include 
                   "gal":"1",
                   "relayhost":"2",
                   "backupmx":"1",
-                  "relay_all_recipients":"0",
-                  "lang":"cs"
+                  "relay_all_recipients":"0"
                }
             }
 
@@ -318,8 +288,7 @@ Example: You can add domain names to items list and in attr object just include 
                         "gal":"1",
                         "relayhost":"2",
                         "backupmx":"1",
-                        "relay_all_recipients":"0",
-                        "lang:"cs"
+                        "relay_all_recipients":"0"
                      },
                      null
                   ],
